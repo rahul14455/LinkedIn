@@ -9,6 +9,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Avatar from "@mui/material/Avatar";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -30,6 +31,9 @@ function Header() {
         <HeaderOptions Icon={MessageIcon} title="Messaging" />
         <HeaderOptions Icon={NotificationsIcon} title="Notification" />
         <HeaderOptions Icon={Avatar} title="Rahul" />
+        <Link to="/premium">
+          <HeaderOptions title="Try Premium for ₹0" />
+        </Link>
       </div>
     </div>
   );

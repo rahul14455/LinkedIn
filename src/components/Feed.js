@@ -7,45 +7,23 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import "../CSS/feed.css";
 import Post from "./Post";
 import { Token } from "@mui/icons-material";
-import { Modal } from "@mui/material";
-import ModalCompo from "./ModalCompo";
+import ModalComponent from "./ModalComponent";
 
 function Feed() {
   const [input, SetInput] = useState("");
   const [content, Setcontent] = useState();
+  const [imagepost, Setimagepost] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [postText, setPostText] = useState("");
+  const [toggle, setToggle] = useState(false);
   const popupRef = useRef(null);
 
-  const buttonStyles = {
-    position: "absolute",
-    top: "10px",
-    left: "10px",
-    margin: "10px",
-  };
-  const submitPost = (e) => {
-    e.preventDefault();
-    // SetInput();
-  };
-
-  const openPopup = () => {
-    setIsOpen(true);
-  };
-
-  const closePopup = () => {
-    setIsOpen(false);
-  };
-
-  const handlePostChange = (event) => {
-    setPostText(event.target.value);
-  };
-
-  const handlePost = () => {
-    console.log("Posting:", postText);
-    closePopup();
-  };
-  // Function to open the popup
-
+  // const buttonStyles = {
+  //   position: "absolute",
+  //   top: "10px",
+  //   left: "10px",
+  //   margin: "10px",
+  // };
   const [postsData, setPostsData] = useState([]);
   // const [reloadPosts, setreloadPosts] = useState(true);
   const fetchData = async () => {
@@ -69,11 +47,15 @@ function Feed() {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [toggle]);
 
   const UploadPost = async () => {
     try {
-      // const FormData = new FormData();
+      const form = new FormData();
+      form.append("title", input);
+      form.append("content", content);
+      form.append("images", imagepost);
+
       const response = await fetch(
         "https://academics.newtonschool.co/api/v1/linkedin/post",
         {
@@ -83,16 +65,10 @@ function Feed() {
             authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           // body: FormData,
-          body: JSON.stringify({
-            title: input,
-            content: content,
-            images: null,
-          }),
+          body: form,
         }
       );
-      // const jsonData = await response.json();
-      // setPostsData(jsonData.data);
-      // console.log(jsonData);
+      console.log(response.json());
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -111,10 +87,21 @@ function Feed() {
               type="text"
               placeholder="Start a post"
               value={input}
-              onChange={(e) => setInput(e.target.value)} // Correct usage of setInput
+              onClick={toggleModal}
+              onChange={(e) => setInput(e.target.value)}
             />
-            <button onClick={toggleModal}>Post</button>
-            {isOpen && <ModalCompo isOpen={isOpen} setIsOpen={setIsOpen} />}
+
+            <ModalComponent
+              open={isOpen}
+              handleClose={() => {
+                setIsOpen(false);
+              }}
+              SetInput={SetInput}
+              Setcontent={Setcontent}
+              UploadPost={UploadPost}
+              setToggle={setToggle}
+              toggle={toggle}
+            />
           </form>
         </div>
         <div className="feed_options">

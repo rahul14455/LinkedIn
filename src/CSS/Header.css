@@ -72,3 +72,14 @@
   height: 30px !important;
   object-fit: contain;
 }
+.header_options:last-child {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* margin: 0 auto; */
+  color: #915907 !important;
+  font-weight: 400;
+  margin: 0px 15px;
+  font-size: 14px;
+  text-decoration: underline;
+}

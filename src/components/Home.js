@@ -3,6 +3,7 @@ import Header from "../Header";
 import Sidebar from "./Sidebar";
 import Feed from "./Feed";
 import Widget from "./Widget";
+import Profile from "./Profile";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
         <Sidebar />
         <Feed />
         <Widget />
+        <Profile />
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ const Home = () => {
         <Sidebar />
         <Feed />
         <Widget />
-        <Profile />
+        {/* <Profile /> */}
       </div>
     </div>
   );

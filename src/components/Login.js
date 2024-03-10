@@ -50,6 +50,15 @@ function Login() {
       localStorage.setItem("token", token);
 
       // Redirect to dashboard or another page upon successful login
+      localStorage.setItem(
+        "userDetails",
+        JSON.stringify({
+          name: data.data.name,
+          email: data.data.email,
+          id: data.data._id,
+        })
+      );
+      navigate("/home");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -89,6 +98,14 @@ function Login() {
       const token = data.token;
       // Store token in localStorage
       localStorage.setItem("token", token);
+      localStorage.setItem(
+        "userDetails",
+        JSON.stringify({
+          name: data.data.name,
+          email: data.data.email,
+          id: data.data._id,
+        })
+      );
 
       navigate("/home");
 

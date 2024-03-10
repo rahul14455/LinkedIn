@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import "../CSS/profile.css";
 import { Link, useParams } from "react-router-dom";
 
-const Profile = ({ loading, setLoading }) => {
+const Profile = () => {
   const param = useParams();
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
-  const { name, id } = JSON.parse(sessionStorage.getItem("userDetails"));
+  const { name, id } = JSON.parse(localStorage.getItem("userDetails"));
 
   async function handleConnect() {
     try {
-      const token = sessionStorage.getItem("userToken");
+      const token = localStorage.getItem("token");
       const response = await fetch(
         `https://academics.newtonschool.co/api/v1/linkedin/user/${param.id}`,
         {
@@ -20,19 +20,20 @@ const Profile = ({ loading, setLoading }) => {
           },
         }
       );
-      setUser(response.data.data);
+      const userData = await response.json(); // Parse response JSON
+      console.log(userData);
+      setUser(userData.data); // Update user state with fetched data
     } catch (error) {
       console.log(error);
     } finally {
       setLoader(false);
-      setLoading(false);
     }
   }
 
   useEffect(() => {
     async function getUser() {
       try {
-        const token = sessionStorage.getItem("userToken");
+        const token = localStorage.getItem("token");
         const response = await fetch(
           `https://academics.newtonschool.co/api/v1/linkedin/user/${param.id}`,
           {
@@ -42,20 +43,21 @@ const Profile = ({ loading, setLoading }) => {
             },
           }
         );
-        setUser(response.data.data);
+        const userData = await response.json(); // Parse response JSON
+        setUser(userData.data); // Update user state with fetched data
+        console.log(userData.data); // Update user state with fetched
       } catch (error) {
         console.log(error);
       } finally {
         setLoader(false);
-        setLoading(false);
       }
     }
     getUser();
   }, []);
+
   return (
-    <div>
+    !loader && (
       <>
-        (
         <div className="all-content-container">
           <div className="feedPage-layout-container">
             <div className="groupPage-layout">
@@ -67,7 +69,7 @@ const Profile = ({ loading, setLoading }) => {
                       src="https://img.freepik.com/free-photo/old-cement-wall-texture_1149-1280.jpg"
                       alt=""
                     />
-                    {user.profileImage ? (
+                    {user?.profileImage ? (
                       <img
                         className={`profile-image`}
                         src={user.profileImage}
@@ -76,10 +78,11 @@ const Profile = ({ loading, setLoading }) => {
                     ) : (
                       <img
                         className={`profile-image`}
-                        src={`https://ui-avatars.com/api/?name=${user.name.slice(
+                        src={`https://ui-avatars.com/api/?name=${name.slice(
                           0,
                           1
                         )}&background=random`}
+                        alt=""
                       />
                     )}
                   </div>
@@ -180,9 +183,8 @@ const Profile = ({ loading, setLoading }) => {
             </div>
           </div>
         </div>
-        )
       </>
-    </div>
+    )
   );
 };
 

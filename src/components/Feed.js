@@ -11,12 +11,18 @@ import { Modal } from "@mui/material";
 import ModalCompo from "./ModalCompo";
 
 function Feed() {
-  const [input, SetInput] = useState();
+  const [input, SetInput] = useState("");
   const [content, Setcontent] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [postText, setPostText] = useState("");
   const popupRef = useRef(null);
 
+  const buttonStyles = {
+    position: "absolute",
+    top: "10px",
+    left: "10px",
+    margin: "10px",
+  };
   const submitPost = (e) => {
     e.preventDefault();
     // SetInput();
@@ -92,61 +98,23 @@ function Feed() {
     }
     // setreloadPosts(false);
   };
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className="feed">
       <div className="feed_input">
         <div className="feed_form">
           <Avatar />
-          <form onSubmit={submitPost}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <input
-              id="overlay"
               type="text"
               placeholder="Start a post"
               value={input}
-              onChange={(e) => SetInput(e.target.value)}
-              // disabled={true}
-              onClick={setIsOpen}
+              onChange={(e) => setInput(e.target.value)} // Correct usage of setInput
             />
-            <ModalCompo isOpen={isOpen} setIsOpen={setIsOpen} />
-
-            <Modal
-              title="Create a post"
-              centered
-              handleClose={() => {
-                setIsOpen(false);
-              }}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <input
-                className="modal-input"
-                placeholder="What do You want to talk about"
-              />
-            </Modal>
-            {/* {isOpen && (
-              <div ref={popupRef} className="popup">
-                <div className="popup-content">
-                  <textarea
-                    value={postText}
-                    onChange={handlePostChange}
-                    placeholder="Write your post here..."
-                    rows={4}
-                    cols={50}
-                  />
-                  <br />
-                  <button onClick={handlePost}>Post</button>
-                  <button onClick={closePopup}>Cancel</button>
-                </div>
-              </div>
-            )} */}
-
-            {/* <input
-              type="text"
-              value={content}
-              placeholder="Content"
-              onChange={(e) => Setcontent(e.target.value)}
-            /> */}
-            <input type="submit" />
+            <button onClick={toggleModal}>Post</button>
+            {isOpen && <ModalCompo isOpen={isOpen} setIsOpen={setIsOpen} />}
           </form>
         </div>
         <div className="feed_options">

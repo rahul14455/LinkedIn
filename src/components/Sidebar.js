@@ -9,7 +9,7 @@ function Sidebar() {
         <img src="https://t4.ftcdn.net/jpg/05/71/83/47/240_F_571834789_ujYbUnH190iUokdDhZq7GXeTBRgqYVwa.jpg" />
         <div className="profile_details">
           <Avatar />
-          <h4> K Rahul Kumar</h4>
+          <h4>{JSON.parse(localStorage.getItem("userDetails")).name}</h4>
           <p>Full Stack Developer</p>
         </div>
 

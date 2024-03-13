@@ -5,14 +5,24 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
 import SendIcon from "@mui/icons-material/Send";
+import { useNavigate } from "react-router-dom";
 
 import "../CSS/post.css";
-function Post({ name, content, title, profileImage, likeCount }) {
+function Post({ name, content, title, profileImage, likeCount, key, userid }) {
+  // const userId = "Id";
+  const navigate = useNavigate();
+  const handleAvatarClick = (userId) => {
+    navigate(`/Profile/${userId}`);
+  };
+  console.log(userid);
   return (
     <div className="posts">
       <div className="post_header">
         <div className="post_header_left">
-          <Avatar src={profileImage} />
+          <Avatar
+            src={profileImage}
+            onClick={() => handleAvatarClick(userid)}
+          />
           <div className="post_profile_details">
             <h3>{name}</h3>
             <p>{title}</p>

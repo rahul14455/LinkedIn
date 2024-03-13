@@ -8,22 +8,14 @@ import "../CSS/feed.css";
 import Post from "./Post";
 import { Token } from "@mui/icons-material";
 import ModalComponent from "./ModalComponent";
-
 function Feed() {
   const [input, SetInput] = useState("");
   const [content, Setcontent] = useState();
-  const [imagepost, Setimagepost] = useState();
+  const [imagepost, Setimagepost] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [postText, setPostText] = useState("");
+  // const [postText, setPostText] = useState("");
   const [toggle, setToggle] = useState(false);
   const popupRef = useRef(null);
-
-  // const buttonStyles = {
-  //   position: "absolute",
-  //   top: "10px",
-  //   left: "10px",
-  //   margin: "10px",
-  // };
   const [postsData, setPostsData] = useState([]);
   // const [reloadPosts, setreloadPosts] = useState(true);
   const fetchData = async () => {
@@ -54,8 +46,7 @@ function Feed() {
       const form = new FormData();
       form.append("title", input);
       form.append("content", content);
-      form.append("images", imagepost);
-
+      if (imagepost) form.append("images", imagepost);
       const response = await fetch(
         "https://academics.newtonschool.co/api/v1/linkedin/post",
         {
@@ -68,7 +59,11 @@ function Feed() {
           body: form,
         }
       );
-      console.log(response.json());
+      const jsonResponse = await response.json();
+      console.log(jsonResponse);
+      if (response.ok) {
+        setToggle((prevToggle) => !prevToggle);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -81,6 +76,7 @@ function Feed() {
     <div className="feed">
       <div className="feed_input">
         <div className="feed_form">
+          {/* <Avatar onClick={() => navigate("/Profile")} /> */}
           <Avatar />
           <form onSubmit={(e) => e.preventDefault()}>
             <input
@@ -126,19 +122,13 @@ function Feed() {
           </div>
         </div>
       </div>
-
-      {/* <button
-        onClick={() => {
-          setreloadPosts(true);
-        }}
-      >
-        Click
-      </button> */}
       {postsData.length > 0 &&
         postsData.map((post) => {
+          // console.log(post._id, post);
           return (
             <Post
               key={post._id}
+              userid={post.author._id}
               name={post.author.name}
               content={post.content}
               title={post.title}
@@ -148,13 +138,13 @@ function Feed() {
             />
           );
         })}
-      <Post
+      {/* <Post
         name="James Anderson"
         description="This is A test match"
         message="Playing with india is difficult under Kohli Captancy"
         profileImage="https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_640,q_50/lsci/db/PICTURES/CMS/316500/316516.png"
         likeCount={25}
-      />
+      /> */}
     </div>
   );
 }

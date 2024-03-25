@@ -1,7 +1,14 @@
+.searchusers {
+  display: flex;
+  flex: 0.6;
+  flex-direction: column;
+  margin: 0px 30px;
+}
 .card {
-  width: 300px;
+  /* width: 300px; */
   border: 1px solid #ccc;
   border-radius: 8px;
+  background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
   margin-bottom: 16px;

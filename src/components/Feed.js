@@ -8,6 +8,7 @@ import "../CSS/feed.css";
 import Post from "./Post";
 import { Token } from "@mui/icons-material";
 import ModalComponent from "./ModalComponent";
+import Header from "../Header";
 function Feed() {
   const [input, SetInput] = useState("");
   const [content, Setcontent] = useState();
@@ -135,6 +136,7 @@ function Feed() {
               message="Playing with india is difficult under Kohli Captancy"
               profileImage={post.author.profileImage}
               likeCount={post.likeCount}
+              postId={post._id}
             />
           );
         })}

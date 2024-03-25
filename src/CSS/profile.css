@@ -1,3 +1,111 @@
+.all-content-container {
+  padding: 0px;
+}
+.feedPage-layout-container {
+  margin: 24px auto;
+  max-width: 576px;
+}
+.feedPage-layout {
+  display: grid;
+  grid-template-areas: "sidebar" "main" "aside";
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 24px;
+  grid-template-rows: auto;
+  row-gap: 24px;
+}
+.feedPage-layout--sidebar {
+  grid-area: sidebar;
+}
+.feedPage-layout--main {
+  grid-area: main;
+}
+.feedPage-main--box {
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0px 0px 0px 1px rgb(140 140 140/0.2);
+}
+.feedPage-layout--aside-social-connect-container {
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0px 0px 0px 1px rgb(140 140 140/0.2);
+  position: sticky;
+  top: 76px;
+}
+.feedPage-layout--aside-social-connect-container.dark {
+  background-color: #1b1f23;
+}
+
+.feedPage-layout--aside-social-connect {
+  padding: 8px 12px 24px;
+  text-align: center;
+  > p:first-child {
+    text-align: end;
+    font-size: 13px;
+  }
+  > div {
+    margin-top: 16px;
+    > img {
+      width: 72px;
+      height: 72px;
+    }
+    > img:first-child {
+      margin-right: 16px;
+      border-radius: 50%;
+    }
+  }
+  > p:nth-child(3) {
+    margin-top: 16px;
+    font-weight: 300;
+    > span {
+      font-weight: 500;
+      color: rgb(0 0 0/0.8);
+    }
+  }
+  > a {
+    margin-top: 12px;
+    display: inline-block;
+    border: 1px solid #0a66c2;
+    color: #0a66c2;
+    padding: 8px 12px;
+    border-radius: 24px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+}
+.feedPage-layout--aside-social-connect.dark {
+  > p:first-child {
+    color: rgb(255 255 255/0.9);
+  }
+  > p:nth-child(3) {
+    margin-top: 16px;
+    font-weight: 300;
+    color: rgb(255 255 255/0.9);
+    > span {
+      color: rgb(255 255 255/0.9);
+    }
+  }
+}
+
+.groupPage-layout {
+  display: flex;
+  /* grid-template-areas: "main" "aside";
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 24px;
+  grid-template-rows: auto;
+  row-gap: 24px; */
+}
+.groupPage-layout--main {
+  grid-area: main;
+}
+.groupPage-layout--aside {
+  grid-area: aside;
+}
 .image-and-cover-container {
   width: 100%;
 }

@@ -11,8 +11,10 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
 import Post from "./components/Post";
+import SearchUser from "./components/SearchUser";
 
 function Header(props) {
+  const { setSearchData } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -36,6 +38,8 @@ function Header(props) {
       const data = await response.json();
       console.log(data.data);
       setSearchResults(data.data);
+      setSearchData(data.data);
+      localStorage.setItem("searchdata", JSON.stringify(data.data));
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
@@ -56,23 +60,23 @@ function Header(props) {
             onChange={handleSearch}
           />
           {loading && <p>Loading...</p>}
-          {input && searchResults?.length && (
+          {/* {input && searchResults?.length && (
             <ul>
               {searchResults.map((result) => {
                 console.log(result);
                 return (
                   <div className="searchresults">
-                    {/* <li key={result._id}>
+                    <li key={result._id}>
                       <p>Title: {result.title}</p>
                       <p>Author: {result.author}</p>
                       <p>Content: {result.content}</p>
-                    </li> */}
-                    {result._id}
+                    </li>
+                    <SearchUser userData={result} />
                   </div>
                 );
               })}
             </ul>
-          )}
+          )} */}
         </div>
       </div>
 

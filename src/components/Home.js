@@ -1,3 +1,4 @@
+import "../CSS/home.css";
 import React, { useState } from "react";
 import Header from "../Header";
 import Sidebar from "./Sidebar";
@@ -8,12 +9,29 @@ import SearchUser from "./SearchUser";
 
 const Home = () => {
   const [search, setsearch] = useState(false);
+  const [searchUserData, setSearchData] = useState([]);
   return (
     <div className="app_wrapper">
-      <Header setsearch={setsearch} />
+      <Header setsearch={setsearch} setSearchData={setSearchData} />
       <div className="app_body">
         <Sidebar />
-        {search ? <SearchUser /> : <Feed />}
+
+        {!search ? (
+          <Feed />
+        ) : (
+          searchUserData.length && (
+            <div className="search-results">
+              {searchUserData.map((result) => {
+                return (
+                  <div className="searchresults">
+                    <SearchUser userData={result} />
+                  </div>
+                );
+              })}
+            </div>
+          )
+        )}
+
         <Widget />
       </div>
     </div>

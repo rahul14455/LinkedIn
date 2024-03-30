@@ -17,9 +17,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   return (
     <BrowserRouter>
-      <div>
-        <Header />
-      </div>
+      <div>{/* <Header /> */}</div>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/Home" element={<Home />} />

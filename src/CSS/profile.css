@@ -1,4 +1,4 @@
-.all-content-container {
+/* .all-content-container {
   padding: 0px;
 }
 .feedPage-layout-container {
@@ -214,4 +214,153 @@
 }
 .profile-dummy-about.dark {
   color: rgb(255 255 255/0.9);
+}
+ */
+
+/* Main Layout and Background */
+.all-content-container {
+  background-color: #f3f2ef;
+  padding: 20px 0;
+}
+
+.feedPage-layout-container {
+  margin: 0 auto;
+  max-width: 1128px;
+}
+
+.groupPage-layout {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Main content area - where the profile will be displayed */
+.groupPage-layout--main {
+  flex: 0 0 70%; /* 70% width of the container */
+  margin-right: 20px;
+}
+
+/* Sidebar - for ads or other content */
+.groupPage-layout--aside {
+  flex: 0 0 25%; /* 25% width of the container */
+}
+
+/* Cover Image and Profile Image */
+.image-and-cover-container {
+  position: relative;
+  height: 200px; /* Fixed height for cover */
+}
+
+.profile-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure cover image covers the entire area */
+}
+
+.profile-image {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  border: 2px solid white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+  bottom: 0;
+  z-index: 5;
+  background-color: white;
+}
+
+/* Profile Name and Description */
+.profile-name {
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  margin-top: 50px; /* Enough space to clear the profile image */
+  text-align: center;
+}
+
+.profile-dummy-description {
+  font-size: 16px;
+  color: rgba(0, 0, 0, .6);
+  margin-top: 16px;
+  text-align: center;
+}
+
+/* Buttons below profile name/description */
+.profile-dummy-button {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+.profile-dummy-button button {
+  font-size: 14px;
+  padding: 12px 20px;
+  border-radius: 28px;
+  border: 1px solid transparent;
+  background-color: #0a66c2;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.profile-dummy-button button:hover {
+  background-color: #004182;
+}
+
+/* About Section */
+.feedPage-main--box {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.profile-dummy-about h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.profile-dummy-about p {
+  font-size: 14px;
+  color: rgba(0, 0, 0, .9);
+  margin-bottom: 16px;
+}
+
+/* Aside Ad Section */
+.feedPage-layout--aside-social-connect-container {
+  position: sticky;
+  top: 20px;
+}
+
+.feedPage-layout--aside-social-connect {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feedPage-layout--aside-social-connect p {
+  color: rgba(0, 0, 0, .6);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.feedPage-layout--aside-social-connect a {
+  display: inline-block;
+  background-color: #0a66c2;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 28px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.feedPage-layout--aside-social-connect a:hover {
+  background-color: #004182;
 }

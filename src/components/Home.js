@@ -8,18 +8,19 @@ import Profile from "./Profile";
 import SearchUser from "./SearchUser";
 
 const Home = () => {
-  const [search, setsearch] = useState(false);
+  const [search, setSearch] = useState("");
   const [searchUserData, setSearchData] = useState([]);
+  console.log({ search });
   return (
     <div className="app_wrapper">
-      <Header setsearch={setsearch} setSearchData={setSearchData} />
+      <Header setSearch={setSearch} setSearchData={setSearchData} />
       <div className="app_body">
         <Sidebar />
 
         {!search ? (
           <Feed />
         ) : (
-          searchUserData.length && (
+          searchUserData?.length && (
             <div className="search-results">
               {searchUserData.map((result) => {
                 return (

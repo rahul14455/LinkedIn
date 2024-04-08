@@ -2,7 +2,7 @@ import React from "react";
 import "../CSS/searchuser.css";
 
 const SearchUser = (props) => {
-  console.log(props);
+  // console.log(props);
   const { userData } = props;
   return (
     <div className="searchusers">

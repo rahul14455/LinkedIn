@@ -1,4 +1,3 @@
-import { Avatar } from "@mui/material";
 import React, { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -6,8 +5,15 @@ import CommentIcon from "@mui/icons-material/Comment";
 import ShareIcon from "@mui/icons-material/Share";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
+import Popover from "@mui/material/Popover";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import { deletePost, likeAPost } from "../api/post.api";
+import Avatar from "@mui/material/Avatar";
 
 import "../CSS/post.css";
+import Comment from "./Comment";
+import { getComments } from "../api/comment.api";
 function Post({
   name,
   content,
@@ -17,6 +23,8 @@ function Post({
   key,
   userid,
   postId,
+  setToggle,
+  isLiked,
 }) {
   // const userId = "Id";
   const navigate = useNavigate();
@@ -24,12 +32,15 @@ function Post({
     navigate(`/Profile/${userId}`);
   };
   const [showCommentInput, setShowCommentInput] = useState(false);
-  console.log(userid);
+  const [inputData, setInputData] = useState("");
+  const [commentData, setCommentData] = useState([]);
+  const userName = JSON.parse(localStorage.getItem("userDetails")).name;
+  const avatar = userName ? userName.charAt(0) : "R";
 
   const AddComment = async () => {
     try {
       const form = new FormData();
-      form.append("content", "Congragulations");
+      form.append("content", inputData);
       const response = await fetch(
         `https://academics.newtonschool.co/api/v1/linkedin/comment/${postId}`,
         {
@@ -40,12 +51,14 @@ function Post({
             authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           // body: FormData
-          body: JSON.stringify({ content: "Hello" }),
+          body: JSON.stringify({ content: inputData }),
         }
         // { content: "Hello" }
       );
       const jsonResponse = await response.json();
       console.log(jsonResponse);
+      handleGetComments(postId);
+      setInputData(" ");
       if (response.ok) {
         setToggle((prevToggle) => !prevToggle);
       }
@@ -54,6 +67,36 @@ function Post({
     }
     // setreloadPosts(false);
   };
+
+  const [open, setOpen] = useState(null);
+
+  const handleOpenMenu = (event) => {
+    setOpen(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setOpen(null);
+  };
+
+  const handleDeletePost = async (postId) => {
+    const res = await deletePost(postId);
+    setToggle((prev) => !prev);
+  };
+
+  const handleLikeAPost = async (postId) => {
+    const res = await likeAPost(postId);
+    setToggle((prev) => !prev);
+  };
+
+  const handleCommentChange = (e) => {
+    setInputData(e.target.value);
+  };
+  const handleGetComments = async (postId) => {
+    const res = await getComments(postId);
+    console.log({ res });
+    setCommentData(res?.data);
+  };
+
   return (
     <div className="posts">
       <div className="post_header">
@@ -67,7 +110,34 @@ function Post({
             <p>{title}</p>
           </div>
         </div>
-        <MoreVertIcon />
+        <IconButton
+          onClick={(e) => {
+            userid == JSON.parse(localStorage.getItem("userDetails")).id &&
+              handleOpenMenu(e);
+          }}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Popover
+          open={!!open}
+          anchorEl={open}
+          onClose={handleCloseMenu}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+          PaperProps={{
+            sx: { width: 140 },
+          }}
+        >
+          <MenuItem onClick={handleCloseMenu}>Edit</MenuItem>
+
+          <MenuItem
+            onClick={() => {
+              handleDeletePost(postId);
+            }}
+          >
+            Delete
+          </MenuItem>
+        </Popover>
       </div>
 
       <div className="post_body">
@@ -76,15 +146,21 @@ function Post({
 
       <div className="post_footer">
         <div className="post_footer_option">
-          <ThumbUpIcon />
+          <ThumbUpIcon
+            onClick={() => {
+              !isLiked && handleLikeAPost(postId);
+            }}
+            style={{ color: isLiked ? "red" : "none" }}
+          />
           <span>{likeCount}</span>
-          <span>Like</span>
+          <span style={{ marginLeft: "2px" }}> Like</span>
         </div>
 
         <div
           className="post_footer_option"
           onClick={() => {
             setShowCommentInput((prev) => !prev);
+            handleGetComments(postId);
           }}
         >
           <CommentIcon />
@@ -103,8 +179,45 @@ function Post({
       </div>
       {showCommentInput && (
         <div>
-          <input type="text" />
-          <button onClick={() => AddComment()}>post</button>
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              margin: "10px 10px",
+              justifyContent: "center",
+            }}
+          >
+            <Avatar
+              sx={{
+                bgcolor: "orange",
+                width: "36px !important",
+                height: "36px !important",
+              }}
+            >
+              {avatar}
+            </Avatar>
+            <input
+              value={inputData}
+              placeholder="Add a comment ..."
+              style={{ width: "70%", borderRadius: "10px" }}
+              onChange={handleCommentChange}
+            />
+            <button
+              className="profile-dummy-button"
+              onClick={() => AddComment()}
+            >
+              post
+            </button>
+          </div>
+          {commentData.length > 0 &&
+            commentData.map((singlecomment) => {
+              return (
+                <Comment
+                  authorName={singlecomment?.author_details?.name}
+                  content={singlecomment?.content}
+                />
+              );
+            })}
         </div>
       )}
     </div>

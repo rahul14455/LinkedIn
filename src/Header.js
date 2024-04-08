@@ -14,7 +14,7 @@ import Post from "./components/Post";
 import SearchUser from "./components/SearchUser";
 
 function Header(props) {
-  const { setSearchData } = props;
+  const { setSearchData, setSearch } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,8 @@ function Header(props) {
     setSearchTerm(searchQuery);
     setInput(e.target.value);
     setLoading(true);
-    props.setsearch(true);
+    console.log(e.target.value);
+    setSearch(e.target.value);
 
     try {
       const response = await fetch(
@@ -36,7 +37,7 @@ function Header(props) {
         }
       );
       const data = await response.json();
-      console.log(data.data);
+      // console.log(data.data);
       setSearchResults(data.data);
       setSearchData(data.data);
       localStorage.setItem("searchdata", JSON.stringify(data.data));

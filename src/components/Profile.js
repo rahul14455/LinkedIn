@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../CSS/profile.css";
 import { Link, useParams } from "react-router-dom";
 import Header from "../Header";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 const Profile = () => {
   const param = useParams();
@@ -60,17 +61,22 @@ const Profile = () => {
     !loader && (
       <>
         <Header />
-        <div className="all-content-container">
-          <div className="feedPage-layout-container">
+        <div className="all-content-container-profile">
+          <div className="feedPage-layout-container-profile">
             <div className="groupPage-layout">
               <div className="groupPage-layout--main">
                 <div className={`feedPage-main--box`}>
-                  <div className="image-and-cover-container">
+                  <div style={{ height: "200px", position: "relative" }}>
+                    {" "}
                     <img
                       className="profile-cover"
                       src="https://img.freepik.com/free-photo/old-cement-wall-texture_1149-1280.jpg"
                       alt=""
+                      height="200px"
+                      width="200px"
                     />
+                  </div>
+                  <div className="image-and-cover-container">
                     {user.profileImage ? (
                       <img
                         className={`profile-image`}
@@ -87,49 +93,48 @@ const Profile = () => {
                       />
                     )}
                   </div>
-                  <p className={`profile-name`}>{user.name}</p>
-                  <p className={`profile-dummy-description`}>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Neque nesciunt sequi error eum in, praesentium facilis, non
-                    magni voluptatum laboriosam quaerat modi quis ratione vel
-                    quasi? Quas modi animi placeat.
-                  </p>
-                  {id !== user._id && (
-                    <p className={`profile-msg`}>
-                      Connecting and Messaging feature is not available
+                  <div className="padding-container">
+                    <p className={`profile-name`}>{user.name}</p>
+                    <p className={`profile-dummy-description`}>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Neque nesciunt sequi error eum in, praesentium facilis,
+                      non magni voluptatum laboriosam quaerat modi quis ratione
+                      vel quasi? Quas modi animi placeat.
                     </p>
-                  )}
-                  <div className={`profile-dummy-button`}>
-                    {id !== user._id ? (
-                      <>
-                        <button onClick={handleConnect}>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            id="connect-small"
-                            aria-hidden="true"
-                            role="none"
-                            data-supported-dps="16x16"
-                            fill="currentColor"
-                          >
-                            <path d="M9 4a3 3 0 11-3-3 3 3 0 013 3zM6.75 8h-1.5A2.25 2.25 0 003 10.25V15h6v-4.75A2.25 2.25 0 006.75 8zM13 8V6h-1v2h-2v1h2v2h1V9h2V8z"></path>
-                          </svg>
-                          Connect
-                        </button>
-                        <button>Message</button>
-                        <button>More</button>
-                      </>
-                    ) : (
-                      <>
-                        <button>Open to</button>
-                        <button>Add profile section</button>
-                        <button>More</button>
-                      </>
+                    {id !== user._id && (
+                      <p className={`profile-msg`}>
+                        Connecting and Messaging feature is not available
+                      </p>
                     )}
+                    <div className={`profile-dummy-button`}>
+                      {id !== user._id ? (
+                        <>
+                          <button
+                            onClick={handleConnect}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "3px",
+                            }}
+                          >
+                            <PersonAddIcon width="20px" height="20px" />
+                            Connect
+                          </button>
+                          <button>Message</button>
+                          <button>More</button>
+                        </>
+                      ) : (
+                        <>
+                          <button>Open to</button>
+                          <button>Add profile section</button>
+                          <button>More</button>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
 
-                <div className={`feedPage-main--box`}>
+                <div className={`feedPage-main--box-about`}>
                   <div className={`profile-dummy-about`}>
                     <h3>About</h3>
                     <p>

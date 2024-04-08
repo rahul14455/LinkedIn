@@ -22,7 +22,7 @@ function Feed() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://academics.newtonschool.co/api/v1/linkedin/post",
+        "https://academics.newtonschool.co/api/v1/linkedin/post?limit=100",
         {
           method: "GET",
           headers: {
@@ -45,7 +45,7 @@ function Feed() {
   const UploadPost = async () => {
     try {
       const form = new FormData();
-      form.append("title", input);
+      form.append("title", "title");
       form.append("content", content);
       if (imagepost) form.append("images", imagepost);
       const response = await fetch(
@@ -73,6 +73,7 @@ function Feed() {
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
+  console.log(postsData);
   return (
     <div className="feed">
       <div className="feed_input">
@@ -109,7 +110,7 @@ function Feed() {
 
           <div className="option">
             <YouTubeIcon style={{ color: "#7fc15e" }} />
-            <span>Vedio</span>
+            <span>Video</span>
           </div>
 
           <div className="option">
@@ -137,6 +138,8 @@ function Feed() {
               profileImage={post.author.profileImage}
               likeCount={post.likeCount}
               postId={post._id}
+              isLiked={post.isLiked}
+              setToggle={setToggle}
             />
           );
         })}

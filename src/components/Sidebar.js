@@ -1,6 +1,7 @@
 import React from "react";
 import "../CSS/sidebar.css";
 import Avatar from "@mui/material/Avatar";
+import { Link, useParams } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -27,7 +28,7 @@ function Sidebar() {
         </div>
       </div>
 
-      <div className="sidebar_recent">
+      {/* <div className="sidebar_recent">
         <p>Recent</p>
         <p className="hash">
           <span>#</span> Branding
@@ -47,6 +48,15 @@ function Sidebar() {
         <p className="hash">
           <span>#</span> ReactJs
         </p>
+      </div> */}
+
+      <div className="sidebar_recent">
+        <div>
+          <Link to="/groups">Groups</Link> <br />
+          <Link to="#">Events</Link> <br />
+          <Link to="#">Followed Hashtags</Link> <br />
+        </div>
+        <p>Discover more</p>
       </div>
     </div>
   );

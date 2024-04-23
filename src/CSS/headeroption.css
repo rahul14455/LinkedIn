@@ -1,0 +1,77 @@
+.profile-modal {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  max-width: 264px;
+  width: 288px;
+  border-radius: 4px;
+  border: 1px solid grey;
+  min-height: 100%;
+  background-color: #fff;
+  cursor: default;
+}
+.profile-modal.dark {
+  background-color: #1b1f23;
+}
+.modal-profile-intro-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  border-bottom: 1px solid rgb(0 0 0/0.1);
+  cursor: pointer;
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    > img {
+      border-radius: 50%;
+      width: 54px;
+    }
+    > span {
+      font-weight: 500;
+    }
+  }
+  > button {
+    border: 1px solid #186fc6;
+    margin-top: 8px;
+    font-weight: 500;
+    color: #186fc6;
+    border-radius: 24px;
+    padding: 2px;
+    cursor: pointer;
+  }
+}
+.modal-profile-intro-container.dark {
+  border-bottom: 1px solid rgb(255 255 255/0.1);
+  > button {
+    background-color: #1b1f23;
+  }
+}
+.dark-mode-btn {
+  display: flex;
+  padding: 6px 12px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(0 0 0/0.1);
+  font-size: 16px;
+  > span:last-child {
+    cursor: pointer;
+    > div {
+      > label {
+        margin-right: 0;
+      }
+    }
+  }
+}
+.dark-mode-btn.dark {
+  border-bottom: 1px solid rgb(255 255 255/0.1);
+}
+.logout-btn {
+  padding: 9px 12px;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+}

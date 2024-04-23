@@ -12,12 +12,14 @@ import Avatar from "@mui/material/Avatar";
 import { Link } from "react-router-dom";
 import Post from "./components/Post";
 import SearchUser from "./components/SearchUser";
+import Dropdown from "./components/Dropdown";
 
 function Header(props) {
   const { setSearchData, setSearch } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [openprofile, setOpenProfile] = useState(false);
   const [input, setInput] = useState("");
   const handleSearch = async (e) => {
     const searchQuery = e.target.value;
@@ -87,10 +89,19 @@ function Header(props) {
         <HeaderOptions Icon={BusinessCenterIcon} title="Jobs" />
         <HeaderOptions Icon={MessageIcon} title="Messaging" />
         <HeaderOptions Icon={NotificationsIcon} title="Notification" />
-        <HeaderOptions
+        {/* <HeaderOptions
           Icon={Avatar}
-          title={JSON.parse(localStorage.getItem("userDetails")).name}
-        />
+          // title={JSON.parse(localStorage.getItem("userDetails")).name}
+         
+        /> */}
+        <Dropdown title="Me" />
+        {/* <div className="drop-down">
+          <ul className="menu-list">
+            <li>Profile</li>
+            <li>Logout</li>
+          </ul>
+        </div> */}
+
         <Link to="/premium">
           <HeaderOptions title="Try Premium for ₹0" />
         </Link>

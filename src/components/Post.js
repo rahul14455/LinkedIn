@@ -36,7 +36,8 @@ function Post({
   const [commentData, setCommentData] = useState([]);
   const userName = JSON.parse(localStorage.getItem("userDetails")).name;
   const avatar = userName ? userName.charAt(0) : "R";
-
+  // const userName = "Rahul";
+  // const avatar = "R";
   const AddComment = async () => {
     try {
       const form = new FormData();

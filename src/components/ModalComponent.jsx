@@ -31,6 +31,8 @@ export default function ModalComponent({
 }) {
   const name = JSON.parse(localStorage.getItem("userDetails")).name;
   const avatar = name ? name.charAt(0) : "R";
+  // const name = "Rahul";
+  // const avatar = "R";
   return (
     <Modal
       open={open}

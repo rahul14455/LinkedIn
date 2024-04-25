@@ -8,8 +8,8 @@ const Profile = () => {
   const param = useParams();
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
-  const { name, id } = JSON.parse(localStorage.getItem("userDetails"));
-
+  // const name = "rahul";
+  // const id = 1;
   async function handleConnect() {
     try {
       const token = localStorage.getItem("token");

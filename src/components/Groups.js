@@ -9,6 +9,7 @@ function Groups({ loading, setLoading }) {
   //   const { darkMode } = useDarkMode();
   const darkMode = false;
   const { name } = JSON.parse(localStorage.getItem("userDetails"));
+  // const name = "Rahul";
   const [groups, setGroups] = React.useState(() => {
     const myGroups = localStorage.getItem("linkedin-myGroups");
     if (myGroups) {

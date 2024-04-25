@@ -9,12 +9,32 @@ import { CssTransition } from "@mui/base/Transitions";
 import { PopupContext } from "@mui/base/Unstable_Popup";
 import HeaderOptions from "../HeaderOptions";
 import Avatar from "@mui/material/Avatar";
-
+import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 export default function MenuIntroduction() {
   const createHandleMenuClick = (menuItem) => {
     return () => {
       console.log(`Clicked on ${menuItem}`);
     };
+  };
+
+  // const { name, id } = JSON.parse(localStorage.getItem("userDetails"));
+  // function setModalFalse(e) {
+  //   if (!myElementRef.current.contains(e.target)) {
+  //     setShowModal(false);
+  //   }
+  // }
+  // useEffect(() => {
+  //   document.addEventListener("click", setModalFalse);
+  //   return () => {
+  //     document.removeEventListener("click", setModalFalse);
+  //   };
+  // }, []);
+
+  const handleLogout = (e) => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userDetails");
+    // navigate("/home");
   };
 
   return (
@@ -27,7 +47,7 @@ export default function MenuIntroduction() {
         <MenuItem onClick={createHandleMenuClick("Language settings")}>
           Language settings
         </MenuItem>
-        <MenuItem onClick={createHandleMenuClick("Log out")}>Log out</MenuItem>
+        <MenuItem onClick={handleLogout("Log out")}>Log out</MenuItem>
       </Menu>
     </Dropdown>
   );

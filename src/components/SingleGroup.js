@@ -7,6 +7,8 @@ import "./singlegroup.css";
 import { createPortal } from "react-dom";
 function SingleGroup({ loading, setLoading }) {
   const { name, id } = JSON.parse(LocalStorage.getItem("userDetails"));
+  // const name = "Rahul";
+  // const id = 1;
   const [suggestedGroups, setSuggestedGroups] = useState([]);
   const [group, setGroup] = useState(null);
   const [groupPosts, setGroupPosts] = useState([]);
@@ -415,6 +417,8 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
   const [content, setContent] = useState("");
   const [imageSrc, setImageSrc] = useState("");
   const { name } = JSON.parse(LocalStorage.getItem("userDetails"));
+  // const name = "Rahul";
+
   const contentEditableRef = useRef(null);
   const imagePreviewRef = useRef(null);
 

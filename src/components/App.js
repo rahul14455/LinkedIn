@@ -12,9 +12,15 @@ import Groups from "./Groups";
 import Header from "../Header";
 
 function App() {
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(null);
+  // const token = localStorage.getItem("token");
   console.log({ token });
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    console.log({ storedToken });
+    setToken(storedToken);
+  }, []);
   return (
     <BrowserRouter>
       <div>{/* <Header /> */}</div>

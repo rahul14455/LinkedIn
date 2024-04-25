@@ -1,16 +1,32 @@
 import React from "react";
 import "../CSS/sidebar.css";
 import Avatar from "@mui/material/Avatar";
-import { Link, useParams } from "react-router-dom";
+import { Link, json, useParams } from "react-router-dom";
 
 function Sidebar() {
+  // const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  // const userDetailsString = localStorage.getItem("userDetails");
+  // const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
+  // console.log("userDetails from localStorage:", userDetailsString);
+
+  let userDetails = JSON.parse(localStorage.getItem("userDetails")) || {
+    name: "Guest",
+  };
+
+  // try {
+  //   userDetails = JSON.parse(userDetailsString);
+  // } catch (error) {
+  //   console.error("Error parsing userDetails:", error);
+  // }
+
+  // console.log("Parsed userDetails:", userDetails);
   return (
     <div className="sidebar">
       <div className="sidebar_profile">
         <img src="https://t4.ftcdn.net/jpg/05/71/83/47/240_F_571834789_ujYbUnH190iUokdDhZq7GXeTBRgqYVwa.jpg" />
         <div className="profile_details">
           <Avatar />
-          <h4>{JSON.parse(localStorage.getItem("userDetails")).name}</h4>
+          <h4>{userDetails.name}</h4>
           <p>Full Stack Developer</p>
         </div>
 

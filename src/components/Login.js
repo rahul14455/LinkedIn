@@ -68,23 +68,23 @@ function Login() {
     e.preventDefault();
 
     if (!email) {
-      return alert("Email is required.");
+      alert("Email is required.");
+      return;
     }
 
     if (!password) {
-      return alert("password is required.");
+      alert("Password is required.");
+      return;
     }
-    //console.log({ name, email, password, appType: "linkedin" });
 
     try {
-      // Replace 'api/login' with your actual login API endpoint
       const response = await fetch(
-        "  https://academics.newtonschool.co/api/v1/user/login",
+        "https://academics.newtonschool.co/api/v1/user/login",
         {
           method: "POST",
           headers: {
-            projectID: "ba3mq1ynqg62",
             "Content-Type": "application/json",
+            projectid: "ba3mq1ynqg62",
           },
           body: JSON.stringify({
             email: email,
@@ -93,28 +93,34 @@ function Login() {
           }),
         }
       );
+      if (!response.ok) {
+        throw new Error(`HTTP error Status: ${response.status}`);
+      }
+
       const data = await response.json();
-      console.log(data); // Handle response data
-      const token = data.token;
-      // Store token in localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem(
-        "userDetails",
-        JSON.stringify({
-          name: data.data.user.name,
-          email: data.data.user.email,
-          id: data.data.user._id,
-        })
-      );
+      console.log("API Response:", data);
 
-      navigate("/home");
-
-      // Redirect to dashboard or another page upon successful login
+      if (data.token && data.data && data.data.user) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem(
+          "userDetails",
+          JSON.stringify(
+            data.data.user
+            // id: data.data.user._id,
+            // name: data.data.user.name,
+            // email: data.data.user.email,
+            // profileImage: data.data.user.profileImage,
+          )
+        );
+        navigate("/home");
+      } else {
+        alert("Login failed, please check your credentials and try again.");
+      }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Login error:", error);
+      alert("Login failed, please check console for details.");
     }
   };
-
   return (
     <>
       <div className="loginscreen">

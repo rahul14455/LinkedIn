@@ -29,10 +29,14 @@ export default function ModalComponent({
   toggle,
   setToggle,
 }) {
-  const name = JSON.parse(localStorage.getItem("userDetails")).name;
-  const avatar = name ? name.charAt(0) : "R";
+  // const name = JSON.parse(localStorage.getItem("userDetails")).name;
+  // const avatar = name ? name.charAt(0) : "R";
   // const name = "Rahul";
   // const avatar = "R";
+  const userDetailsString = localStorage.getItem("userDetails");
+  const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
+  const name = userDetails ? userDetails.name : "Guest";
+  const avatar = name.charAt(0);
   return (
     <Modal
       open={open}

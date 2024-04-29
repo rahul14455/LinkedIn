@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import TextField from "@mui/material/TextField";
+import userDetails from "../utils/userDetails";
 
 const style = {
   position: "absolute",
@@ -33,9 +34,7 @@ export default function ModalComponent({
   // const avatar = name ? name.charAt(0) : "R";
   // const name = "Rahul";
   // const avatar = "R";
-  const userDetailsString = localStorage.getItem("userDetails");
-  const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
-  const name = userDetails ? userDetails.name : "Guest";
+  const { userName: name } = userDetails();
   const avatar = name.charAt(0);
   return (
     <Modal

@@ -9,12 +9,13 @@ import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Avatar from "@mui/material/Avatar";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Post from "./components/Post";
 import SearchUser from "./components/SearchUser";
 import Dropdown from "./components/Dropdown";
-
+import Home from "./components/Home";
 function Header(props) {
+  const navigate = useNavigate();
   const { setSearchData, setSearch } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -48,11 +49,18 @@ function Header(props) {
     }
     setLoading(false);
   };
+
+  function Homeclick() {
+    navigate("/Home");
+  }
   return (
     <div className="header">
       <div className="header_left">
         <div className="header_logo">
-          <img src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png" />
+          <img
+            onClick={Homeclick}
+            src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"
+          />
         </div>
         <div className="header_search">
           <SearchIcon />

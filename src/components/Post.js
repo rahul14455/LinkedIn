@@ -14,6 +14,7 @@ import Avatar from "@mui/material/Avatar";
 import "../CSS/post.css";
 import Comment from "./Comment";
 import { getComments } from "../api/comment.api";
+import userDetails from "../utils/userDetails";
 function Post({
   name,
   content,
@@ -34,7 +35,7 @@ function Post({
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [inputData, setInputData] = useState("");
   const [commentData, setCommentData] = useState([]);
-  const userName = JSON.parse(localStorage.getItem("userDetails")).name;
+  const { userName } = userDetails();
   const avatar = userName ? userName.charAt(0) : "R";
   // const userName = "Rahul";
   // const avatar = "R";

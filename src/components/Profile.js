@@ -9,7 +9,7 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
   // const name = "rahul";
-  // const id = 1;
+  const id = param.id;
   async function handleConnect() {
     try {
       const token = localStorage.getItem("token");
@@ -77,16 +77,16 @@ const Profile = () => {
                     />
                   </div>
                   <div className="image-and-cover-container">
-                    {user.profileImage ? (
+                    {user?.profileImage ? (
                       <img
                         className={`profile-image`}
-                        src={user.profileImage}
+                        src={user?.profileImage}
                         alt=""
                       />
                     ) : (
                       <img
                         className={`profile-image`}
-                        src={`https://ui-avatars.com/api/?name=${user.name.slice(
+                        src={`https://ui-avatars.com/api/?name=${user?.name.slice(
                           0,
                           1
                         )}&background=random`}
@@ -94,20 +94,20 @@ const Profile = () => {
                     )}
                   </div>
                   <div className="padding-container">
-                    <p className={`profile-name`}>{user.name}</p>
+                    <p className={`profile-name`}>{user?.name}</p>
                     <p className={`profile-dummy-description`}>
                       Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                       Neque nesciunt sequi error eum in, praesentium facilis,
                       non magni voluptatum laboriosam quaerat modi quis ratione
                       vel quasi? Quas modi animi placeat.
                     </p>
-                    {id !== user._id && (
+                    {id !== user?._id && (
                       <p className={`profile-msg`}>
                         Connecting and Messaging feature is not available
                       </p>
                     )}
                     <div className={`profile-dummy-button`}>
-                      {id !== user._id ? (
+                      {id !== user?._id ? (
                         <>
                           <button
                             onClick={handleConnect}

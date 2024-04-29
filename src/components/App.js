@@ -10,11 +10,13 @@ import Premium from "./Premium";
 import Profile from "./Profile";
 import Groups from "./Groups";
 import Header from "../Header";
+import SingleGroup from "./SingleGroup";
 
 function App() {
   const [token, setToken] = useState(null);
   // const token = localStorage.getItem("token");
-  console.log({ token });
+  // console.log({ token });
+  // localStorage.setItem("token", "rahul");
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -32,6 +34,10 @@ function App() {
         <Route
           path="/groups"
           element={<Groups loading={loading} setLoading={setLoading} />}
+        />
+        <Route
+          path="/groups/:id"
+          element={<SingleGroup loading={loading} setLoading={setLoading} />}
         />
       </Routes>
     </BrowserRouter>

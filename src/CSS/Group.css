@@ -3,7 +3,6 @@
 }
 .feedPage-layout-container {
   margin: 24px auto;
-  max-width: 576px;
 }
 .feedPage-layout--aside-social-connect-container {
   background-color: #fff;
@@ -570,10 +569,10 @@
 }
 
 @media screen and (min-width: 770px) {
-  .groupPage-layout {
+  /* .groupPage-layout {
     grid-template-areas: "main aside";
     grid-template-columns: minmax(0, auto) minmax(0, 300px);
-  }
+  } */
 }
 @media screen and (max-width: 500px) {
   .create-and-your-groups {

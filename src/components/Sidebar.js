@@ -2,6 +2,7 @@ import React from "react";
 import "../CSS/sidebar.css";
 import Avatar from "@mui/material/Avatar";
 import { Link, json, useParams } from "react-router-dom";
+import getUserDetails from "../utils/userDetails";
 
 function Sidebar() {
   // const userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -9,9 +10,7 @@ function Sidebar() {
   // const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
   // console.log("userDetails from localStorage:", userDetailsString);
 
-  let userDetails = JSON.parse(localStorage.getItem("userDetails")) || {
-    name: "Guest",
-  };
+  let userDetails = { name: getUserDetails().userName };
 
   // try {
   //   userDetails = JSON.parse(userDetailsString);

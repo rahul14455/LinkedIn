@@ -10,11 +10,15 @@ import { PopupContext } from "@mui/base/Unstable_Popup";
 import HeaderOptions from "../HeaderOptions";
 import Avatar from "@mui/material/Avatar";
 import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { Link, json, useParams } from "react-router-dom";
 export default function MenuIntroduction() {
+  const navigate = useNavigate();
   const createHandleMenuClick = (menuItem) => {
     return () => {
-      console.log(`Clicked on ${menuItem}`);
+      navigate(
+        `/Profile/${JSON.parse(localStorage.getItem("userDetails"))._id}`
+      );
     };
   };
 
@@ -34,7 +38,7 @@ export default function MenuIntroduction() {
   const handleLogout = (e) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userDetails");
-    // navigate("/home");
+    navigate("/");
   };
 
   return (
@@ -44,10 +48,13 @@ export default function MenuIntroduction() {
       </MenuButton>
       <Menu slots={{ listbox: AnimatedListbox }}>
         <MenuItem onClick={createHandleMenuClick("Profile")}>Profile</MenuItem>
-        <MenuItem onClick={createHandleMenuClick("Language settings")}>
-          Language settings
+        <MenuItem
+          onClick={() => {
+            handleLogout("Log out");
+          }}
+        >
+          Log out
         </MenuItem>
-        <MenuItem onClick={handleLogout("Log out")}>Log out</MenuItem>
       </Menu>
     </Dropdown>
   );

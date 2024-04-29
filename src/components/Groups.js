@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 import createGroup from "../utils/createGroup";
 import axios from "axios";
+import userDetails from "../utils/userDetails";
+import Header from "../Header";
 function Groups({ loading, setLoading }) {
   const [active, setActive] = useState(true);
   //   const { darkMode } = useDarkMode();
   const darkMode = false;
-  const { name } = JSON.parse(localStorage.getItem("userDetails"));
+  // const { name } = JSON.parse(localStorage.getItem("userDetails"));
+  const { userName: name } = userDetails();
   // const name = "Rahul";
   const [groups, setGroups] = React.useState(() => {
     const myGroups = localStorage.getItem("linkedin-myGroups");
@@ -43,7 +46,7 @@ function Groups({ loading, setLoading }) {
   }
 
   function handleNavigate(id) {
-    navigate(`/group/${id}`);
+    navigate(`/groups/${id}`);
   }
   useEffect(() => {
     getAllChannels(setSuggestedGroups, setLoading);
@@ -51,6 +54,7 @@ function Groups({ loading, setLoading }) {
   return (
     !loading && (
       <>
+        <Header />
         <div className="all-content-container">
           <div className="feedPage-layout-container">
             <div className="groupPage-layout">

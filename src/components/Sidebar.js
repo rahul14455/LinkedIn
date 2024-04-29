@@ -5,20 +5,7 @@ import { Link, json, useParams } from "react-router-dom";
 import getUserDetails from "../utils/userDetails";
 
 function Sidebar() {
-  // const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-  // const userDetailsString = localStorage.getItem("userDetails");
-  // const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
-  // console.log("userDetails from localStorage:", userDetailsString);
-
   let userDetails = { name: getUserDetails().userName };
-
-  // try {
-  //   userDetails = JSON.parse(userDetailsString);
-  // } catch (error) {
-  //   console.error("Error parsing userDetails:", error);
-  // }
-
-  // console.log("Parsed userDetails:", userDetails);
   return (
     <div className="sidebar">
       <div className="sidebar_profile">
@@ -42,28 +29,6 @@ function Sidebar() {
           <span className="start_number"> 150 </span>
         </div>
       </div>
-
-      {/* <div className="sidebar_recent">
-        <p>Recent</p>
-        <p className="hash">
-          <span>#</span> Branding
-        </p>
-        <p className="hash">
-          <span>#</span> Marketing
-        </p>
-        <p className="hash">
-          <span>#</span> WebDevelopment
-        </p>
-        <p className="hash">
-          <span>#</span> Programing
-        </p>
-        <p className="hash">
-          <span>#</span> NewtonSchool
-        </p>
-        <p className="hash">
-          <span>#</span> ReactJs
-        </p>
-      </div> */}
 
       <div className="sidebar_recent">
         <div>

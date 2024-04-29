@@ -1,10 +1,8 @@
-.all-content-container {
-  padding: 52px 0;
-}
-.feedPage-layout-container {
+.feedPage-layout-container-groups {
   margin: 24px auto;
+  padding: 20px;
 }
-.feedPage-layout--aside-social-connect-container {
+.feedPage-layout--aside-social-connect-container-groups {
   background-color: #fff;
   border-radius: 8px;
   margin-bottom: 8px;
@@ -14,7 +12,7 @@
   position: sticky;
   top: 76px;
 }
-.feedPage-layout--aside-social-connect-container.dark {
+.feedPage-layout--aside-social-connect-container.dark-groups {
   background-color: #1b1f23;
 }
 .create-post-modal-container {
@@ -147,7 +145,7 @@
   animation: errormsg 4s ease;
 }
 .groupPage-layout {
-  display: grid;
+  /* display: grid; */
   grid-template-areas: "main" "aside";
   grid-template-columns: minmax(0, 1fr);
   column-gap: 24px;

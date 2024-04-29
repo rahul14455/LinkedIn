@@ -56,7 +56,7 @@ function Groups({ loading, setLoading }) {
       <>
         <Header />
         <div className="all-content-container">
-          <div className="feedPage-layout-container">
+          <div className="feedPage-layout-container-groups">
             <div className="groupPage-layout">
               <div className="groupPage-layout--main">
                 <div
@@ -179,12 +179,12 @@ function Groups({ loading, setLoading }) {
                   </div>
                 </div>
                 <div
-                  className={`feedPage-layout--aside-social-connect-container ${
+                  className={`feedPage-layout--aside-social-connect-container-groups${
                     darkMode ? "dark" : ""
                   }`}
                 >
                   <div
-                    className={`feedPage-layout--aside-social-connect ${
+                    className={`feedPage-layout--aside-social-connect-groups ${
                       darkMode ? "dark" : ""
                     }`}
                   >

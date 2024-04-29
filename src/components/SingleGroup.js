@@ -129,22 +129,22 @@ function SingleGroup({ loading, setLoading }) {
       <>
         <>
           <div className="all-content-container">
-            <div className="feedPage-layout-container">
+            <div className="feedPage-layout-container-sg">
               {/* Grid layout */}
-              <div className="-layoufeedPaget">
+              <div className="feedPage-layout-sg">
                 {/* sidebar */}
-                <div className="feedPage-layout--sidebar">
+                <div className="feedPage-layout--sidebar-sg">
                   {/* Profile */}
-                  <div className={`feedPage-layout--sidebar-profile`}>
-                    <div className="feedPage-layout--sidebar-profile-nameAndImage">
-                      <div className="feedPage-layout--sidebar-profile-cover"></div>
+                  <div className={`feedPage-layout--sidebar-profile-sg`}>
+                    <div className="feedPage-layout--sidebar-profile-nameAndImage-sg">
+                      <div className="feedPage-layout--sidebar-profile-cover-sg"></div>
                       <Link
                         to={`/profile/${id}`}
-                        className="feedPage-layout--sidebar-profile-image-container"
+                        className="feedPage-layout--sidebar-profile-image-container-sg"
                       >
                         <div>
                           <img
-                            className="feedPage-layout--sidebar-profile-image"
+                            className="feedPage-layout--sidebar-profile-image-sg"
                             src={`https://ui-avatars.com/api/?name=${name.slice(
                               0,
                               1
@@ -159,15 +159,33 @@ function SingleGroup({ loading, setLoading }) {
                         >
                           {name}
                         </div>
+                        <div>
+                          <p
+                            className={`feedPage-layout--sidebar-profile-job ${
+                              darkMode ? "dark" : ""
+                            }`}
+                          >
+                            Full Stack Web Developer
+                          </p>
+                        </div>
                       </Link>
-                      <p
-                        className={`feedPage-layout--sidebar-profile-job ${
-                          darkMode ? "dark" : ""
-                        }`}
-                      >
-                        Full Stack Web Developer
-                      </p>
                     </div>
+                  </div>
+
+                  <div
+                    className={`feedPage-layout--sidebar-groupAndChannel ${
+                      darkMode ? "dark" : ""
+                    }`}
+                  >
+                    <div>
+                      <Link to="/groups">Groups</Link>
+                      <br />
+                      <Link to="#">Events</Link>
+                      <br />
+                      <Link to="#">Followed Hashtags</Link>
+                      <br />
+                    </div>
+                    <p>Discover more</p>
                   </div>
 
                   {/* Groups */}
@@ -176,12 +194,7 @@ function SingleGroup({ loading, setLoading }) {
                       darkMode ? "dark" : ""
                     }`}
                   >
-                    <div>
-                      <Link to="/groups">Groups</Link>
-                      <Link to="#">Events</Link>
-                      <Link to="#">Followed Hashtags</Link>
-                    </div>
-                    <p>Discover more</p>
+                    <div></div>
                   </div>
                 </div>
 
@@ -269,19 +282,19 @@ function SingleGroup({ loading, setLoading }) {
                 </div>
 
                 {/* aside */}
-                <div className="feedPage-layout--aside">
+                <div className="feedPage-layout--aside-sg">
                   <div
                     className={`groupPage-common-container ${
                       darkMode ? "dark" : ""
                     }`}
                   >
                     <div
-                      className={`group-seggestion-heading ${
+                      className={`group-seggestion-heading-sg ${
                         darkMode ? "dark" : ""
                       }`}
                     >
                       <span>Groups you might be interested in</span>
-                      <div className="suggested-groups-container">
+                      <div className="suggested-groups-container-sg">
                         {suggestedGroups.map((item, index) => (
                           <SuggestedGroupCard
                             key={index}
@@ -294,12 +307,12 @@ function SingleGroup({ loading, setLoading }) {
                     </div>
                   </div>
                   <div
-                    className={`feedPage-layout--aside-social-connect-container ${
+                    className={`feedPage-layout--aside-social-connect-container-sg ${
                       darkMode ? "dark" : ""
                     }`}
                   >
                     <div
-                      className={`feedPage-layout--aside-social-connect ${
+                      className={`feedPage-layout--aside-social-connect-sg ${
                         darkMode ? "dark" : ""
                       }`}
                     >
@@ -548,9 +561,9 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
               </svg>
             </button>
 
-            <div className="create-post-modal-share-box">
+            <div className="create-post-modal-share-box-sg">
               <div
-                className={`create-post-modal-share-box-header ${
+                className={`create-post-modal-share-box-header-sg ${
                   darkMode ? "dark" : ""
                 }`}
               >
@@ -567,8 +580,8 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
                 </div>
               </div>
 
-              <div className="create-post-modal-share-box-content-container">
-                <div className="create-post-modal-share-box-content">
+              <div className="create-post-modal-share-box-content-container-sg">
+                <div className="create-post-modal-share-box-content-sg">
                   <div
                     className={`ql-editor ql-blank ${darkMode ? "dark" : ""}`}
                     data-gramm="false"
@@ -614,7 +627,7 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
                 </div>
 
                 <div
-                  className={`create-post-modal-share-box-content-post ${
+                  className={`create-post-modal-share-box-content-post-sg ${
                     darkMode ? "dark" : ""
                   }`}
                 >

@@ -7,12 +7,7 @@ import { createPortal } from "react-dom";
 import userDetails from "../utils/userDetails";
 import { Avatar } from "@mui/material";
 import Sidebar from "./Sidebar";
-
-<div>
-  <sidebar></sidebar>
-  <profilecomner></profilecomner>
-  <groupCard></groupCard>
-</div>;
+import { Margin } from "@mui/icons-material";
 
 function SingleGroup({ loading, setLoading }) {
   const { userName: name } = userDetails();
@@ -117,25 +112,26 @@ function SingleGroup({ loading, setLoading }) {
         <>
           <div className="main-content">
             <div className="feedPage-layout">
-              <Sidebar />
-
+              <div style={{ marginTop: "20px", marginLeft: "20px" }}>
+                <Sidebar />
+              </div>
               {/* Grid layout */}
               <div className="feedPage-layout">
                 {/* sidebar */}
-                <div className="feedPage-layout--sidebar">
-                  {/* Profile */}
-                  <div
-                    className={`feedPage-layout--sidebar-profile ${
-                      darkMode ? "dark" : ""
-                    }`}
-                  >
-                    <div className="feedPage-layout--sidebar-profile-nameAndImage">
-                      <div className="feedPage-layout--sidebar-profile-cover"></div>
-                      <Link
-                        to={`/profile/${id}`}
-                        className="feedPage-layout--sidebar-profile-image-container"
-                      >
-                        <div>
+
+                {/* Profile */}
+                <div
+                  className={`feedPage-layout--sidebar-profile ${
+                    darkMode ? "dark" : ""
+                  }`}
+                >
+                  <div className="feedPage-layout--sidebar-profile-nameAndImage">
+                    <div className="feedPage-layout--sidebar-profile-cover"></div>
+                    <Link
+                      to={`/profile/${id}`}
+                      className="feedPage-layout--sidebar-profile-image-container"
+                    >
+                      {/* <div>
                           <img
                             className="feedPage-layout--sidebar-profile-image"
                             src={`https://ui-avatars.com/api/?name=${name.slice(
@@ -144,175 +140,167 @@ function SingleGroup({ loading, setLoading }) {
                             )}&background=random`}
                             alt=""
                           />
-                        </div>
-                        <div
+                        </div> */}
+                      {/* <div
                           className={`feedPage-layout--sidebar-profile-name ${
                             darkMode ? "dark" : ""
                           }`}
                         >
                           {name}
-                        </div>
-                      </Link>
-                    </div>
+                        </div> */}
+                    </Link>
                   </div>
-
-                  {/* Groups */}
-                  <div
-                    className={`feedPage-layout--sidebar-groupAndChannel ${
-                      darkMode ? "dark" : ""
-                    }`}
-                  ></div>
                 </div>
 
-                {/* main */}
-                <div className="feedPage-layout--main">
-                  {/* create post */}
-                  <div
-                    className={`feedPage-main--box ${darkMode ? "dark" : ""}`}
-                  >
-                    <div className="single-group-cover-image">
-                      {group?.image ? (
-                        <img src={group?.image} alt="" />
-                      ) : (
-                        <img
-                          src="https://static.licdn.com/aero-v1/sc/h/5v7kdqzhyyiogppftp4sj6sa0"
-                          alt=""
-                        />
-                      )}
-                    </div>
-                    <div
-                      className={`single-group-details ${
-                        darkMode ? "dark" : ""
-                      }`}
-                    >
-                      <p>{group?.name}</p>
-                      {groups?.find((item) => {
-                        return item._id === group?._id;
-                      }) ? (
-                        <div>
-                          <button onClick={leaveGroup}>leave</button>
-                          <span onClick={() => setShowPostModal(true)}>
-                            Create post
-                          </span>
-                        </div>
-                      ) : (
-                        <div>
-                          <button onClick={addToMyGroups}>Join</button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                {/* Groups */}
+                <div
+                  className={`feedPage-layout--sidebar-groupAndChannel ${
+                    darkMode ? "dark" : ""
+                  }`}
+                ></div>
+              </div>
 
-                  <div
-                    className={`feedPage-main--box ${darkMode ? "dark" : ""}`}
-                  >
-                    <div
-                      className={`single-group-about ${darkMode ? "dark" : ""}`}
-                    >
-                      <p>About this group</p>
-                      <div>
-                        <p>{group?.description}</p>
-                        <p>Get connected - Stay updated!</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="group-posts-container">
-                    {groupPosts.length > 0 ? (
-                      <>
-                        {groupPosts.map((post, index) => (
-                          <SinglePost
-                            key={index}
-                            post={post}
-                            index={index}
-                            group={group}
-                          />
-                        ))}
-                      </>
+              {/* main */}
+              <div className="feedPage-layout--main">
+                {/* create post */}
+                <div className={`feedPage-main--box ${darkMode ? "dark" : ""}`}>
+                  <div className="single-group-cover-image">
+                    {group?.image ? (
+                      <img src={group?.image} alt="" />
                     ) : (
-                      <div
-                        className={`feedPage-main--box ${
-                          darkMode ? "dark" : ""
-                        }`}
-                      >
-                        <div
-                          className={`group-no-post-found ${
-                            darkMode ? "dark" : ""
-                          }`}
-                        >
-                          This group has no post yet!
-                        </div>
+                      <img
+                        src="https://static.licdn.com/aero-v1/sc/h/5v7kdqzhyyiogppftp4sj6sa0"
+                        alt=""
+                      />
+                    )}
+                  </div>
+                  <div
+                    className={`single-group-details ${darkMode ? "dark" : ""}`}
+                  >
+                    <p>{group?.name}</p>
+                    {groups?.find((item) => {
+                      return item._id === group?._id;
+                    }) ? (
+                      <div>
+                        <button onClick={leaveGroup}>leave</button>
+                        <span onClick={() => setShowPostModal(true)}>
+                          Create post
+                        </span>
+                      </div>
+                    ) : (
+                      <div>
+                        <button onClick={addToMyGroups}>Join</button>
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* aside */}
-                <div className="feedPage-layout--aside-sg">
+                <div className={`feedPage-main--box ${darkMode ? "dark" : ""}`}>
                   <div
-                    className={`groupPage-common-container ${
-                      darkMode ? "dark" : ""
-                    }`}
+                    className={`single-group-about ${darkMode ? "dark" : ""}`}
                   >
-                    <div
-                      className={`group-seggestion-heading-sg ${
-                        darkMode ? "dark" : ""
-                      }`}
-                    >
-                      <span>Groups you might be interested in</span>
-                      <div className="suggested-groups-container">
-                        {suggestedGroups.map((item, index) => (
-                          <SuggestedGroupCard
-                            key={index}
-                            item={item}
-                            groups={groups}
-                            setGroups={setGroups}
-                          />
-                        ))}
-                      </div>
+                    <p>About this group</p>
+                    <div>
+                      <p>{group?.description}</p>
+                      <p>Get connected - Stay updated!</p>
                     </div>
                   </div>
+                </div>
+
+                <div className="group-posts-container">
+                  {groupPosts.length > 0 ? (
+                    <>
+                      {groupPosts.map((post, index) => (
+                        <SinglePost
+                          key={index}
+                          post={post}
+                          index={index}
+                          group={group}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div
+                      className={`feedPage-main--box ${darkMode ? "dark" : ""}`}
+                    >
+                      <div
+                        className={`group-no-post-found ${
+                          darkMode ? "dark" : ""
+                        }`}
+                      >
+                        This group has no post yet!
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* aside */}
+              <div className="feedPage-layout--aside-sg">
+                <div
+                  className={`groupPage-common-container ${
+                    darkMode ? "dark" : ""
+                  }`}
+                >
                   <div
-                    className={`feedPage-layout--aside-social-connect-container ${
+                    className={`group-seggestion-heading-sg ${
                       darkMode ? "dark" : ""
                     }`}
                   >
-                    <div
-                      className={`feedPage-layout--aside-social-connect ${
-                        darkMode ? "dark" : ""
-                      }`}
-                    >
-                      <p>Ad</p>
-                      <div>
-                        <img
-                          src={`https://ui-avatars.com/api/?name=${name.slice(
-                            0,
-                            1
-                          )}&background=random`}
-                          alt=""
+                    <span>Groups you might be interested in</span>
+                    <div className="suggested-groups-container">
+                      {suggestedGroups.map((item, index) => (
+                        <SuggestedGroupCard
+                          key={index}
+                          item={item}
+                          groups={groups}
+                          setGroups={setGroups}
                         />
-                        <img
-                          src={
-                            "https://media.licdn.com/dms/image/D4D03AQEAGKpE3guIKA/profile-displayphoto-shrink_100_100/0/1682748449835?e=1708560000&v=beta&t=H1ZWtqL-UCoh3C8c0DmzTCpKuaAudZl1Pjg71WVnjQk"
-                          }
-                          alt=""
-                        />
-                      </div>
-                      <p>
-                        {name}, connect with <span>Alok</span>
-                      </p>
-                      <a
-                        href="https://www.linkedin.com/in/alok-shaw-b57a7426a/"
-                        target="_blank"
-                      >
-                        Connect
-                      </a>
+                      ))}
                     </div>
+                  </div>
+                </div>
+                <div
+                  className={`feedPage-layout--aside-social-connect-container ${
+                    darkMode ? "dark" : ""
+                  }`}
+                >
+                  <div
+                    className={`feedPage-layout--aside-social-connect ${
+                      darkMode ? "dark" : ""
+                    }`}
+                  >
+                    <p>Ad</p>
+                    <div>
+                      <img
+                        src={`https://ui-avatars.com/api/?name=${name.slice(
+                          0,
+                          1
+                        )}&background=random`}
+                        alt=""
+                      />
+                      <img
+                        src={
+                          "https://media.licdn.com/dms/image/D4D03AQEAGKpE3guIKA/profile-displayphoto-shrink_100_100/0/1682748449835?e=1708560000&v=beta&t=H1ZWtqL-UCoh3C8c0DmzTCpKuaAudZl1Pjg71WVnjQk"
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <p>
+                      {name}, connect with <span>Alok</span>
+                    </p>
+                    <a
+                      href="https://www.linkedin.com/in/alok-shaw-b57a7426a/"
+                      target="_blank"
+                    >
+                      Connect
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
           {showPostModal && (
             <CreatePostModal
               group={group}

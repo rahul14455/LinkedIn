@@ -5,6 +5,14 @@ import { SuggestedGroupCard } from "./Groups";
 import "../CSS/singlegroup.css";
 import { createPortal } from "react-dom";
 import userDetails from "../utils/userDetails";
+import { Avatar } from "@mui/material";
+import Sidebar from "./Sidebar";
+
+<div>
+  <sidebar></sidebar>
+  <profilecomner></profilecomner>
+  <groupCard></groupCard>
+</div>;
 
 function SingleGroup({ loading, setLoading }) {
   const { userName: name } = userDetails();
@@ -23,27 +31,6 @@ function SingleGroup({ loading, setLoading }) {
     }
     return [];
   });
-
-  // async function getGroup(id){
-
-  //     try {
-  //         const token = sessionStorage.getItem("userToken");
-  //         const response = await axios.get(`https://academics.newtonschool.co/api/v1/linkedIn/channel/${id}`,
-  //             {
-  //                 headers: {
-  //                     Authorization: `Bearer ${token}`,
-  //                     projectID: 'f104bi07c490'
-  //                 }
-  //             }
-  //         )
-  //         setGroup(response.data.data)
-  //     } catch (error) {
-  //         console.log(error);
-  //     }
-  //     finally{
-  //         setLoading(false)
-  //     }
-  // }
   async function getGroupPosts(id) {
     try {
       const token = localStorage.getItem("token");
@@ -76,25 +63,25 @@ function SingleGroup({ loading, setLoading }) {
     }
   }
   function addToMyGroups() {
-    const myGroups = LocalStorage.getItem("linkedin-myGroups");
+    const myGroups = localStorage.getItem("linkedin-myGroups");
     if (myGroups) {
       let parsedMyGroups = JSON.parse(myGroups);
       parsedMyGroups = [...parsedMyGroups, group];
-      LocalStorage.setItem("linkedin-myGroups", JSON.stringify(parsedMyGroups));
+      localStorage.setItem("linkedin-myGroups", JSON.stringify(parsedMyGroups));
     } else {
-      LocalStorage.setItem("linkedin-myGroups", JSON.stringify([group]));
+      localStorage.setItem("linkedin-myGroups", JSON.stringify([group]));
     }
     setGroups((prev) => {
-      return JSON.parse(LocalStorage.getItem("linkedin-myGroups"));
+      return JSON.parse(localStorage.getItem("linkedin-myGroups"));
     });
   }
   function leaveGroup() {
-    const myGroups = LocalStorage.getItem("linkedin-myGroups");
+    const myGroups = localStorage.getItem("linkedin-myGroups");
     let parsedMyGroups = JSON.parse(myGroups);
     let filteredyGroups = parsedMyGroups.filter((item) => {
       return group._id !== item._id;
     });
-    LocalStorage.setItem("linkedin-myGroups", JSON.stringify(filteredyGroups));
+    localStorage.setItem("linkedin-myGroups", JSON.stringify(filteredyGroups));
     setGroups((prev) => {
       return filteredyGroups;
     });
@@ -121,30 +108,36 @@ function SingleGroup({ loading, setLoading }) {
   useEffect(() => {
     setLoader(true);
     getAllChannels(setSuggestedGroups, setLoading);
-    // getGroup(params.id)
+    // getGroup(params.id);
     getGroupPosts(params.id);
   }, [params.id]);
   return (
     !loading && (
       <>
         <>
-          <div className="all-content-container">
-            <div className="feedPage-layout-container-sg">
+          <div className="main-content">
+            <div className="feedPage-layout">
+              <Sidebar />
+
               {/* Grid layout */}
-              <div className="feedPage-layout-sg">
+              <div className="feedPage-layout">
                 {/* sidebar */}
-                <div className="feedPage-layout--sidebar-sg">
+                <div className="feedPage-layout--sidebar">
                   {/* Profile */}
-                  <div className={`feedPage-layout--sidebar-profile-sg`}>
-                    <div className="feedPage-layout--sidebar-profile-nameAndImage-sg">
-                      <div className="feedPage-layout--sidebar-profile-cover-sg"></div>
+                  <div
+                    className={`feedPage-layout--sidebar-profile ${
+                      darkMode ? "dark" : ""
+                    }`}
+                  >
+                    <div className="feedPage-layout--sidebar-profile-nameAndImage">
+                      <div className="feedPage-layout--sidebar-profile-cover"></div>
                       <Link
                         to={`/profile/${id}`}
-                        className="feedPage-layout--sidebar-profile-image-container-sg"
+                        className="feedPage-layout--sidebar-profile-image-container"
                       >
                         <div>
                           <img
-                            className="feedPage-layout--sidebar-profile-image-sg"
+                            className="feedPage-layout--sidebar-profile-image"
                             src={`https://ui-avatars.com/api/?name=${name.slice(
                               0,
                               1
@@ -159,33 +152,8 @@ function SingleGroup({ loading, setLoading }) {
                         >
                           {name}
                         </div>
-                        <div>
-                          <p
-                            className={`feedPage-layout--sidebar-profile-job ${
-                              darkMode ? "dark" : ""
-                            }`}
-                          >
-                            Full Stack Web Developer
-                          </p>
-                        </div>
                       </Link>
                     </div>
-                  </div>
-
-                  <div
-                    className={`feedPage-layout--sidebar-groupAndChannel ${
-                      darkMode ? "dark" : ""
-                    }`}
-                  >
-                    <div>
-                      <Link to="/groups">Groups</Link>
-                      <br />
-                      <Link to="#">Events</Link>
-                      <br />
-                      <Link to="#">Followed Hashtags</Link>
-                      <br />
-                    </div>
-                    <p>Discover more</p>
                   </div>
 
                   {/* Groups */}
@@ -193,9 +161,7 @@ function SingleGroup({ loading, setLoading }) {
                     className={`feedPage-layout--sidebar-groupAndChannel ${
                       darkMode ? "dark" : ""
                     }`}
-                  >
-                    <div></div>
-                  </div>
+                  ></div>
                 </div>
 
                 {/* main */}
@@ -220,7 +186,7 @@ function SingleGroup({ loading, setLoading }) {
                       }`}
                     >
                       <p>{group?.name}</p>
-                      {groups.find((item) => {
+                      {groups?.find((item) => {
                         return item._id === group?._id;
                       }) ? (
                         <div>
@@ -294,7 +260,7 @@ function SingleGroup({ loading, setLoading }) {
                       }`}
                     >
                       <span>Groups you might be interested in</span>
-                      <div className="suggested-groups-container-sg">
+                      <div className="suggested-groups-container">
                         {suggestedGroups.map((item, index) => (
                           <SuggestedGroupCard
                             key={index}
@@ -307,12 +273,12 @@ function SingleGroup({ loading, setLoading }) {
                     </div>
                   </div>
                   <div
-                    className={`feedPage-layout--aside-social-connect-container-sg ${
+                    className={`feedPage-layout--aside-social-connect-container ${
                       darkMode ? "dark" : ""
                     }`}
                   >
                     <div
-                      className={`feedPage-layout--aside-social-connect-sg ${
+                      className={`feedPage-layout--aside-social-connect ${
                         darkMode ? "dark" : ""
                       }`}
                     >
@@ -443,9 +409,7 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
   const { darkMode } = useDarkMode();
   const [content, setContent] = useState("");
   const [imageSrc, setImageSrc] = useState("");
-  const { userName: name } = userDetails();
-  // const name = "Rahul";
-
+  const { name } = JSON.parse(sessionStorage.getItem("userDetails"));
   const contentEditableRef = useRef(null);
   const imagePreviewRef = useRef(null);
 
@@ -494,7 +458,7 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
     getPosts
   ) {
     try {
-      const token = LocalStorage.getItem("token");
+      const token = sessionStorage.getItem("userToken");
 
       const formData = new FormData();
       formData.append("title", postTitle);
@@ -561,9 +525,9 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
               </svg>
             </button>
 
-            <div className="create-post-modal-share-box-sg">
+            <div className="create-post-modal-share-box">
               <div
-                className={`create-post-modal-share-box-header-sg ${
+                className={`create-post-modal-share-box-header ${
                   darkMode ? "dark" : ""
                 }`}
               >
@@ -580,8 +544,8 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
                 </div>
               </div>
 
-              <div className="create-post-modal-share-box-content-container-sg">
-                <div className="create-post-modal-share-box-content-sg">
+              <div className="create-post-modal-share-box-content-container">
+                <div className="create-post-modal-share-box-content">
                   <div
                     className={`ql-editor ql-blank ${darkMode ? "dark" : ""}`}
                     data-gramm="false"
@@ -627,7 +591,7 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
                 </div>
 
                 <div
-                  className={`create-post-modal-share-box-content-post-sg ${
+                  className={`create-post-modal-share-box-content-post ${
                     darkMode ? "dark" : ""
                   }`}
                 >
@@ -664,7 +628,8 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

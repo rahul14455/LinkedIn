@@ -48,19 +48,27 @@ function Login() {
       const token = data.token;
       // Store token in localStorage
       localStorage.setItem("token", token);
-
       // Redirect to dashboard or another page upon successful login
-      localStorage.setItem(
-        "userDetails",
-        JSON.stringify({
-          name: data.data.name,
-          email: data.data.email,
-          id: data.data._id,
-        })
-      );
-      navigate("/home");
+
+      if (data.token && data.data && data.data.user) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem(
+          "userDetails",
+          JSON.stringify(
+            data.data.user
+            // id: data.data.user._id,
+            // name: data.data.user.name,
+            // email: data.data.user.email,
+            // profileImage: data.data.user.profileImage,
+          )
+        );
+        navigate("/home");
+      } else {
+        alert("Login failed, please check your credentials and try again.");
+      }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Login error:", error);
+      alert("Login failed, please check console for details.");
     }
   };
 

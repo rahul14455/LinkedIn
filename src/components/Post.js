@@ -79,6 +79,7 @@ function Post({
   const handleCloseMenu = () => {
     setOpen(null);
   };
+  const editthepost = () => {};
 
   const handleDeletePost = async (postId) => {
     const res = await deletePost(postId);
@@ -114,7 +115,7 @@ function Post({
         </div>
         <IconButton
           onClick={(e) => {
-            userid == JSON.parse(localStorage.getItem("userDetails")).id &&
+            userid == JSON.parse(localStorage.getItem("userDetails"))._id &&
               handleOpenMenu(e);
           }}
         >
@@ -130,7 +131,7 @@ function Post({
             sx: { width: 140 },
           }}
         >
-          <MenuItem onClick={handleCloseMenu}>Edit</MenuItem>
+          <MenuItem onClick={editthepost}>Edit</MenuItem>
 
           <MenuItem
             onClick={() => {

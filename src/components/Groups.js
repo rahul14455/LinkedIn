@@ -8,7 +8,7 @@ import userDetails from "../utils/userDetails";
 import Header from "../Header";
 function Groups({ loading, setLoading }) {
   const [active, setActive] = useState(true);
-  //   const { darkMode } = useDarkMode();
+    // const { darkMode } = useDarkMode();
   const darkMode = false;
   // const { name } = JSON.parse(localStorage.getItem("userDetails"));
   const { userName: name } = userDetails();

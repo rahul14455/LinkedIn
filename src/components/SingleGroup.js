@@ -320,7 +320,7 @@ const SinglePost = ({ post, group }) => {
   if (!post) {
     return;
   }
-  const { darkMode } = useDarkMode();
+  // const { darkMode } = useDarkMode();
   const contentContainerRef = useRef();
   const [showSeeMore, setShowSeeMore] = useState(false);
   const [fitContent, setFitContent] = useState(post.images?.[0] ? false : true);
@@ -394,10 +394,11 @@ const SinglePost = ({ post, group }) => {
 };
 
 function CreatePostModal({ setShowPostModal, getPosts, group }) {
-  const { darkMode } = useDarkMode();
+  // const { darkMode } = useDarkMode();
+  const darkMode = false;
   const [content, setContent] = useState("");
   const [imageSrc, setImageSrc] = useState("");
-  const { name } = JSON.parse(sessionStorage.getItem("userDetails"));
+  const { name } = JSON.parse(localStorage.getItem("userDetails"));
   const contentEditableRef = useRef(null);
   const imagePreviewRef = useRef(null);
 
@@ -446,7 +447,7 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
     getPosts
   ) {
     try {
-      const token = sessionStorage.getItem("userToken");
+      const token = localStorage.getItem("userToken");
 
       const formData = new FormData();
       formData.append("title", postTitle);
@@ -586,6 +587,7 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
                   <div>
                     <label htmlFor="file-input">
                       <svg
+                        className="svg-img"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         id="image-medium"
@@ -604,7 +606,7 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
                     />
                   </div>
 
-                  <div>
+                  <div className="post-btn">
                     <button
                       onClick={handleCreatePost}
                       className={`${content || imageSrc ? "active" : ""}`}

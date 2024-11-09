@@ -29,11 +29,9 @@ export default function ModalComponent({
   UploadPost,
   toggle,
   setToggle,
+  postId,
+  content,
 }) {
-  // const name = JSON.parse(localStorage.getItem("userDetails")).name;
-  // const avatar = name ? name.charAt(0) : "R";
-  // const name = "Rahul";
-  // const avatar = "R";
   const { userName: name } = userDetails();
   const avatar = name.charAt(0);
   return (
@@ -43,37 +41,6 @@ export default function ModalComponent({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      {/* <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h4">
-          Create a post
-        </Typography>
-        <input
-          className="modal-input"
-          type="text"
-          placeholder="Title"
-          onChange={(e) => {
-            SetInput(e.target.value);
-          }}
-        />
-        <input
-          className="modal-content"
-          type="text"
-          placeholder="What do you want to talk about?"
-          onChange={(e) => {
-            Setcontent(e.target.value);
-          }}
-        />
-
-        <button
-          className="post-btn"
-          onClick={() => {
-            UploadPost(), handleClose(), setToggle(!toggle);
-          }}
-        >
-          Post
-        </button>
-        modal-description" sx={{ mt: 2 }}></Typography>
-      </Box> */}
       <Box sx={style}>
         <div className="user-info-div">
           <div style={{ display: "flex", alignItems: "center", gap: "7px" }}>
@@ -108,6 +75,7 @@ export default function ModalComponent({
           onChange={(e) => {
             Setcontent(e.target.value);
           }}
+          value={content}
         />
         <div className="profile-dummy-button" style={{ marginLeft: "80%" }}>
           <button

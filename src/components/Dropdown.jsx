@@ -22,19 +22,6 @@ export default function MenuIntroduction() {
     };
   };
 
-  // const { name, id } = JSON.parse(localStorage.getItem("userDetails"));
-  // function setModalFalse(e) {
-  //   if (!myElementRef.current.contains(e.target)) {
-  //     setShowModal(false);
-  //   }
-  // }
-  // useEffect(() => {
-  //   document.addEventListener("click", setModalFalse);
-  //   return () => {
-  //     document.removeEventListener("click", setModalFalse);
-  //   };
-  // }, []);
-
   const handleLogout = (e) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userDetails");

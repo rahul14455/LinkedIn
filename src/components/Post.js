@@ -26,6 +26,8 @@ function Post({
   postId,
   setToggle,
   isLiked,
+  handleUpdatePost,
+  handleOpen,
 }) {
   // const userId = "Id";
   const navigate = useNavigate();
@@ -79,7 +81,10 @@ function Post({
   const handleCloseMenu = () => {
     setOpen(null);
   };
-  const editthepost = () => {};
+  const editthepost = () => {
+    handleUpdatePost(content, postId);
+    handleOpen();
+  };
 
   const handleDeletePost = async (postId) => {
     const res = await deletePost(postId);
@@ -206,18 +211,28 @@ function Post({
               onChange={handleCommentChange}
             />
             <button
-              className="profile-dummy-button"
+              style={{
+                color: "blue",
+                backgroundColor: "white",
+                boxShadow: "none",
+                border: "none",
+              }}
               onClick={() => AddComment()}
+              disabled={!inputData}
             >
-              post
+              Post
             </button>
           </div>
           {commentData.length > 0 &&
             commentData.map((singlecomment) => {
+              console.log(singlecomment);
               return (
                 <Comment
                   authorName={singlecomment?.author_details?.name}
                   content={singlecomment?.content}
+                  commentId={singlecomment?._id}
+                  handleGetComments={handleGetComments}
+                  postId={postId}
                 />
               );
             })}

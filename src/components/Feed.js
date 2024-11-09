@@ -18,6 +18,7 @@ function Feed() {
   const [toggle, setToggle] = useState(false);
   const popupRef = useRef(null);
   const [postsData, setPostsData] = useState([]);
+  const [selectedPostId, setPostId] = useState(null);
   // const [reloadPosts, setreloadPosts] = useState(true);
   const fetchData = async () => {
     try {
@@ -70,10 +71,49 @@ function Feed() {
     }
     // setreloadPosts(false);
   };
+
+  const UpdatePost = async () => {
+    try {
+      const form = new FormData();
+      form.append("title", "title");
+      form.append("content", content);
+      if (imagepost) form.append("images", imagepost);
+      const response = await fetch(
+        `https://academics.newtonschool.co/api/v1/linkedIn/post/${selectedPostId}`,
+        {
+          method: "PATCH",
+          headers: {
+            projectid: "ba3mq1ynqg62",
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          // body: FormData,
+          body: form,
+        }
+      );
+      const jsonResponse = await response.json();
+      console.log(jsonResponse);
+      if (response.ok) {
+        setToggle((prevToggle) => !prevToggle);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+    // setreloadPosts(false);
+  };
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
   console.log(postsData);
+
+  const handleUpdatePost = (content, postId) => {
+    Setcontent(content);
+    setPostId(postId);
+  };
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
   return (
     <div className="feed">
       <div className="feed_input">
@@ -96,9 +136,10 @@ function Feed() {
               }}
               SetInput={SetInput}
               Setcontent={Setcontent}
-              UploadPost={UploadPost}
+              UploadPost={selectedPostId ? UpdatePost : UploadPost}
               setToggle={setToggle}
               toggle={toggle}
+              content={content}
             />
           </form>
         </div>
@@ -140,6 +181,8 @@ function Feed() {
               postId={post._id}
               isLiked={post.isLiked}
               setToggle={setToggle}
+              handleUpdatePost={handleUpdatePost}
+              handleOpen={handleOpen}
             />
           );
         })}

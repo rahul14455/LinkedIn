@@ -52,16 +52,7 @@ function Login() {
 
       if (data.token && data.data && data.data.user) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem(
-          "userDetails",
-          JSON.stringify(
-            data.data.user
-            // id: data.data.user._id,
-            // name: data.data.user.name,
-            // email: data.data.user.email,
-            // profileImage: data.data.user.profileImage,
-          )
-        );
+        localStorage.setItem("userDetails", JSON.stringify(data.data.user));
         navigate("/home");
       } else {
         alert("Login failed, please check your credentials and try again.");
@@ -110,16 +101,7 @@ function Login() {
 
       if (data.token && data.data && data.data.user) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem(
-          "userDetails",
-          JSON.stringify(
-            data.data.user
-            // id: data.data.user._id,
-            // name: data.data.user.name,
-            // email: data.data.user.email,
-            // profileImage: data.data.user.profileImage,
-          )
-        );
+        localStorage.setItem("userDetails", JSON.stringify(data.data.user));
         navigate("/home");
       } else {
         alert("Login failed, please check your credentials and try again.");

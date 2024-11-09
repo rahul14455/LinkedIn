@@ -1,8 +1,26 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
+import { IconButton } from "@mui/material";
+import { deleteCommentAPI } from "../api/comment.api";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const Comment = ({ authorName, userRole = "", content = "" }) => {
+const Comment = ({
+  authorName,
+  userRole = "",
+  content = "",
+  commentId,
+  postId,
+  handleGetComments,
+}) => {
   const avatar = authorName.charAt(0);
+  const deleteComment = async () => {
+    try {
+      const res = await deleteCommentAPI(commentId);
+      handleGetComments(postId);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <div style={{ display: "flex", gap: "15px", padding: "12px" }}>
       {" "}
@@ -23,10 +41,17 @@ const Comment = ({ authorName, userRole = "", content = "" }) => {
           borderRadius: "16px",
         }}
       >
-        <div style={{ fontWeight: "bold", marginBottom: "5px" }}>
-          {authorName}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>
+            <div style={{ fontWeight: "bold", marginBottom: "5px" }}>
+              {authorName}
+            </div>
+            <div>{content}</div>
+          </div>
+          <IconButton onClick={deleteComment}>
+            <DeleteIcon sx={{ fontSize: "20px" }} />
+          </IconButton>
         </div>
-        <div>{content}</div>
       </div>
     </div>
   );

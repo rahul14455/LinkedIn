@@ -10,23 +10,34 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const validateName = (name) => {
+    return name.length >= 8;
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password) && !password.includes(" ");
+  };
+
   const register = async (e) => {
     e.preventDefault();
 
-    if (!name) {
-      return alert("Name is required.");
+    if (!validateName(name)) {
+      return alert("Name must be at least 8 characters long.");
     }
 
     if (!email) {
       return alert("Email is required.");
     }
 
-    if (!password) {
-      return alert("password is required.");
+    if (!validatePassword(password)) {
+      return alert(
+        "Password must be at least 8 characters, include uppercase, lowercase, digit, special character, and should not contain spaces."
+      );
     }
-    //console.log({ name, email, password, appType: "linkedin" });
+
     try {
-      // Replace 'api/login' with your actual login API endpoint
       const response = await fetch(
         "https://academics.newtonschool.co/api/v1/user/signup",
         {
@@ -44,22 +55,18 @@ function Login() {
         }
       );
       const data = await response.json();
-      console.log(data); // Handle response data
       const token = data.token;
-      // Store token in localStorage
-      localStorage.setItem("token", token);
-      // Redirect to dashboard or another page upon successful login
 
       if (data.token && data.data && data.data.user) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("userDetails", JSON.stringify(data.data.user));
         navigate("/home");
       } else {
-        alert("Login failed, please check your credentials and try again.");
+        alert("Signup failed, please check your details and try again.");
       }
     } catch (error) {
-      console.error("Login error:", error);
-      alert("Login failed, please check console for details.");
+      console.error("Signup error:", error);
+      alert("Signup failed, please check console for details.");
     }
   };
 
@@ -71,8 +78,10 @@ function Login() {
       return;
     }
 
-    if (!password) {
-      alert("Password is required.");
+    if (!validatePassword(password)) {
+      alert(
+        "Password must be at least 8 characters, include uppercase, lowercase, digit, special character, and should not contain spaces."
+      );
       return;
     }
 
@@ -97,7 +106,6 @@ function Login() {
       }
 
       const data = await response.json();
-      console.log("API Response:", data);
 
       if (data.token && data.data && data.data.user) {
         localStorage.setItem("token", data.token);
@@ -111,11 +119,12 @@ function Login() {
       alert("Login failed, please check console for details.");
     }
   };
+
   return (
     <>
       <div className="loginscreen">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/LinkedIn_Logo.svg/1280px-LinkedIn_Logo.svg.png" />
-        {signup == true ? (
+        {signup ? (
           <form onSubmit={register}>
             <input
               type="text"
@@ -138,8 +147,8 @@ function Login() {
             <input type="submit" value="Sign Up" />
 
             <h4>
-              Already a member ?{" "}
-              <span onClick={(e) => setSignup(false)}>Login Here</span>
+              Already a member?{" "}
+              <span onClick={() => setSignup(false)}>Login Here</span>
             </h4>
           </form>
         ) : (
@@ -156,12 +165,11 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-
             <input type="submit" value="Sign In" onClick={loginfunction} />
 
             <h4>
-              Not a member ?{" "}
-              <span onClick={(e) => setSignup(true)}>Register Here</span>
+              Not a member?{" "}
+              <span onClick={() => setSignup(true)}>Register Here</span>
             </h4>
           </form>
         )}

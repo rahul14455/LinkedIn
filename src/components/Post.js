@@ -62,7 +62,7 @@ function Post({
       const jsonResponse = await response.json();
       console.log(jsonResponse);
       handleGetComments(postId);
-      setInputData(" ");
+      setInputData("");
       if (response.ok) {
         setToggle((prevToggle) => !prevToggle);
       }

@@ -66,6 +66,7 @@ function Feed() {
       if (response.ok) {
         setToggle((prevToggle) => !prevToggle);
       }
+      Setcontent(null);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -95,6 +96,7 @@ function Feed() {
       if (response.ok) {
         setToggle((prevToggle) => !prevToggle);
       }
+      Setcontent(null);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -133,6 +135,7 @@ function Feed() {
               open={isOpen}
               handleClose={() => {
                 setIsOpen(false);
+                Setcontent(null);
               }}
               SetInput={SetInput}
               Setcontent={Setcontent}
@@ -165,8 +168,8 @@ function Feed() {
           </div>
         </div>
       </div>
-      {postsData.length > 0 &&
-        postsData.map((post) => {
+      {postsData?.length > 0 &&
+        postsData?.map((post) => {
           // console.log(post._id, post);
           return (
             <Post
@@ -186,13 +189,6 @@ function Feed() {
             />
           );
         })}
-      {/* <Post
-        name="James Anderson"
-        description="This is A test match"
-        message="Playing with india is difficult under Kohli Captancy"
-        profileImage="https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_640,q_50/lsci/db/PICTURES/CMS/316500/316516.png"
-        likeCount={25}
-      /> */}
     </div>
   );
 }

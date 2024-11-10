@@ -27,7 +27,7 @@ function Feed() {
         {
           method: "GET",
           headers: {
-            projectid: "ba3mq1ynqg62",
+            projectid: "i1dieevrt9g1",
           },
         }
       );
@@ -54,7 +54,7 @@ function Feed() {
         {
           method: "POST",
           headers: {
-            projectid: "ba3mq1ynqg62",
+            projectid: "i1dieevrt9g1",
             authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           // body: FormData,
@@ -83,7 +83,7 @@ function Feed() {
         {
           method: "PATCH",
           headers: {
-            projectid: "ba3mq1ynqg62",
+            projectid: "i1dieevrt9g1",
             authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           // body: FormData,

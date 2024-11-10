@@ -18,7 +18,7 @@ const Profile = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            projectid: "ba3mq1ynqg62",
+            projectid: "i1dieevrt9g1",
           },
         }
       );
@@ -41,7 +41,7 @@ const Profile = () => {
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              projectid: "ba3mq1ynqg62",
+              projectid: "i1dieevrt9g1",
             },
           }
         );

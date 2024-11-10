@@ -5,7 +5,7 @@ export const deletePost = async (postId) => {
       {
         method: "DELETE",
         headers: {
-          projectid: "ba3mq1ynqg62",
+          projectid: "i1dieevrt9g1",
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
@@ -24,7 +24,7 @@ export const likeAPost = async (postId) => {
       {
         method: "POST",
         headers: {
-          projectid: "ba3mq1ynqg62",
+          projectid: "i1dieevrt9g1",
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }

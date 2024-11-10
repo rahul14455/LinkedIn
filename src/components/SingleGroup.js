@@ -34,7 +34,7 @@ function SingleGroup({ loading, setLoading }) {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            projectID: "ba3mq1ynqg62",
+            projectID: "i1dieevrt9g1",
           },
         }
       );
@@ -44,7 +44,7 @@ function SingleGroup({ loading, setLoading }) {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            projectID: "ba3mq1ynqg62",
+            projectID: "i1dieevrt9g1",
           },
         }
       );
@@ -88,7 +88,7 @@ function SingleGroup({ loading, setLoading }) {
         "https://academics.newtonschool.co/api/v1/linkedin/channel?limit=50",
         {
           headers: {
-            projectID: "ba3mq1ynqg62",
+            projectID: "i1dieevrt9g1",
           },
         }
       );
@@ -430,6 +430,24 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
       setImageSrc(reader.result);
     };
   }
+
+  const fetchChannelPosts = async () => {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      `https://academics.newtonschool.co/api/v1/linkedIn/channels/${group?._id}/posts`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          projectID: "i1dieevrt9g1",
+        },
+      }
+    );
+    console.log(response);
+  };
+
+  // useEffect(() => {
+  //   fetchChannelPosts();
+  // }, []);
   function handleCreatePost(e) {
     createPostInChannel(
       "Tech in Education: The Digital Classroom",
@@ -447,7 +465,8 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
     getPosts
   ) {
     try {
-      const token = localStorage.getItem("userToken");
+      const token = localStorage.getItem("token");
+      console.log(token);
 
       const formData = new FormData();
       formData.append("title", postTitle);
@@ -466,7 +485,7 @@ function CreatePostModal({ setShowPostModal, getPosts, group }) {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            projectID: "ba3mq1ynqg62",
+            projectID: "i1dieevrt9g1",
           },
         }
       );

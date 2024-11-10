@@ -8,7 +8,7 @@ import userDetails from "../utils/userDetails";
 import Header from "../Header";
 function Groups({ loading, setLoading }) {
   const [active, setActive] = useState(true);
-    // const { darkMode } = useDarkMode();
+  // const { darkMode } = useDarkMode();
   const darkMode = false;
   // const { name } = JSON.parse(localStorage.getItem("userDetails"));
   const { userName: name } = userDetails();
@@ -32,7 +32,7 @@ function Groups({ loading, setLoading }) {
         "https://academics.newtonschool.co/api/v1/linkedin/channel?limit=50",
         {
           headers: {
-            projectID: "ba3mq1ynqg62",
+            projectID: "i1dieevrt9g1",
           },
         }
       );

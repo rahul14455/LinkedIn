@@ -35,7 +35,7 @@ function Header(props) {
         `https://academics.newtonschool.co/api/v1/linkedin/post?search={"title":"${searchQuery}","content":"${searchQuery}"}`,
         {
           headers: {
-            projectID: "ba3mq1ynqg62",
+            projectID: "i1dieevrt9g1",
           },
         }
       );

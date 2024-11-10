@@ -8,7 +8,7 @@ export default async function getSingleGroup(id, setGroups) {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          projectid: "ba3mq1ynqg62",
+          projectid: "i1dieevrt9g1",
         },
       }
     );

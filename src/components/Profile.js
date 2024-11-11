@@ -3,6 +3,7 @@ import "../CSS/profile.css";
 import { Link, useParams } from "react-router-dom";
 import Header from "../Header";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { Tooltip } from "@mui/material";
 
 const Profile = () => {
   const param = useParams();
@@ -94,6 +95,9 @@ const Profile = () => {
                     )}
                   </div>
                   <div className="padding-container">
+                    <Tooltip title="Under Construction">
+                      <span>Photo</span>
+                    </Tooltip>
                     <p className={`profile-name`}>{user?.name}</p>
                     <p className={`profile-dummy-description`}>
                       Lorem ipsum dolor sit amet consectetur, adipisicing elit.

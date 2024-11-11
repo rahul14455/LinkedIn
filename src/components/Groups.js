@@ -54,7 +54,7 @@ function Groups({ loading, setLoading }) {
   return (
     !loading && (
       <>
-        <Header />
+        <Header hideSearch={true} />
         <div className="all-content-container">
           <div className="feedPage-layout-container-groups">
             <div className="groupPage-layout">

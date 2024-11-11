@@ -10,41 +10,61 @@ import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import { deletePost, likeAPost } from "../api/post.api";
 import Avatar from "@mui/material/Avatar";
-
 import "../CSS/post.css";
 import Comment from "./Comment";
 import { getComments } from "../api/comment.api";
 import userDetails from "../utils/userDetails";
+import { Tooltip } from "@mui/material";
+
 function Post({
   name,
   content,
   title,
   profileImage,
-  likeCount,
+  likeCount: initialLikeCount,
   key,
   userid,
   postId,
   setToggle,
-  isLiked,
+  isLiked: initialIsLiked,
   handleUpdatePost,
   handleOpen,
+  commentCount,
 }) {
-  // const userId = "Id";
   const navigate = useNavigate();
   const handleAvatarClick = (userId) => {
     navigate(`/Profile/${userId}`);
   };
+
+  console.log(commentCount);
+
+  const [isLiked, setIsLiked] = useState(initialIsLiked);
+  const [likeCount, setLikeCount] = useState(initialLikeCount);
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [inputData, setInputData] = useState("");
   const [commentData, setCommentData] = useState([]);
   const { userName } = userDetails();
   const avatar = userName ? userName.charAt(0) : "R";
-  // const userName = "Rahul";
-  // const avatar = "R";
+
+  const handleLikeAPost = async () => {
+    try {
+      if (!isLiked) {
+        await likeAPost(postId);
+        setIsLiked(true);
+        setLikeCount((prevCount) => prevCount + 1);
+      } else {
+        // Assuming `dislikeAPost` API exists for unliking the post
+        await likeAPost(postId); // Use the same function if it toggles
+        setIsLiked(false);
+        setLikeCount((prevCount) => prevCount - 1);
+      }
+    } catch (error) {
+      console.error("Error updating like status:", error);
+    }
+  };
+
   const AddComment = async () => {
     try {
-      const form = new FormData();
-      form.append("content", inputData);
       const response = await fetch(
         `https://academics.newtonschool.co/api/v1/linkedin/comment/${postId}`,
         {
@@ -54,13 +74,10 @@ function Post({
             projectid: "i1dieevrt9g1",
             authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          // body: FormData
           body: JSON.stringify({ content: inputData }),
         }
-        // { content: "Hello" }
       );
       const jsonResponse = await response.json();
-      console.log(jsonResponse);
       handleGetComments(postId);
       setInputData("");
       if (response.ok) {
@@ -69,7 +86,6 @@ function Post({
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-    // setreloadPosts(false);
   };
 
   const [open, setOpen] = useState(null);
@@ -81,6 +97,7 @@ function Post({
   const handleCloseMenu = () => {
     setOpen(null);
   };
+
   const editthepost = () => {
     handleUpdatePost(content, postId);
     handleOpen();
@@ -91,17 +108,12 @@ function Post({
     setToggle((prev) => !prev);
   };
 
-  const handleLikeAPost = async (postId) => {
-    const res = await likeAPost(postId);
-    setToggle((prev) => !prev);
-  };
-
   const handleCommentChange = (e) => {
     setInputData(e.target.value);
   };
+
   const handleGetComments = async (postId) => {
     const res = await getComments(postId);
-    console.log({ res });
     setCommentData(res?.data);
   };
 
@@ -112,6 +124,7 @@ function Post({
           <Avatar
             src={profileImage}
             onClick={() => handleAvatarClick(userid)}
+            style={{ cursor: "pointer" }}
           />
           <div className="post_profile_details">
             <h3>{name}</h3>
@@ -120,12 +133,23 @@ function Post({
         </div>
         <IconButton
           onClick={(e) => {
-            userid == JSON.parse(localStorage.getItem("userDetails"))._id &&
+            const currentUserId = JSON.parse(
+              localStorage.getItem("userDetails")
+            )._id;
+            if (userid === currentUserId) {
               handleOpenMenu(e);
+            }
+          }}
+          style={{
+            visibility:
+              userid === JSON.parse(localStorage.getItem("userDetails"))._id
+                ? "visible"
+                : "hidden",
           }}
         >
           <MoreVertIcon />
         </IconButton>
+
         <Popover
           open={!!open}
           anchorEl={open}
@@ -155,10 +179,8 @@ function Post({
       <div className="post_footer">
         <div className="post_footer_option">
           <ThumbUpIcon
-            onClick={() => {
-              !isLiked && handleLikeAPost(postId);
-            }}
-            style={{ color: isLiked ? "red" : "none" }}
+            onClick={handleLikeAPost}
+            style={{ color: isLiked ? "blue" : "gray" }}
           />
           <span>{likeCount}</span>
           <span style={{ marginLeft: "2px" }}> Like</span>
@@ -173,16 +195,25 @@ function Post({
         >
           <CommentIcon />
           <span>Comment</span>
+          <span>{commentCount}</span>
         </div>
 
         <div className="post_footer_option">
-          <ShareIcon />
-          <span>Share</span>
+          <Tooltip title="Under Construction">
+            <IconButton>
+              <ShareIcon />
+            </IconButton>
+            <span>Share</span>
+          </Tooltip>
         </div>
 
         <div className="post_footer_option">
-          <SendIcon />
-          <span>Send</span>
+          <Tooltip title="Under Construction">
+            <IconButton>
+              <SendIcon />
+            </IconButton>
+            <span>Send</span>
+          </Tooltip>
         </div>
       </div>
       {showCommentInput && (
@@ -217,25 +248,23 @@ function Post({
                 boxShadow: "none",
                 border: "none",
               }}
-              onClick={() => AddComment()}
+              onClick={AddComment}
               disabled={!inputData}
             >
               Post
             </button>
           </div>
           {commentData.length > 0 &&
-            commentData.map((singlecomment) => {
-              console.log(singlecomment);
-              return (
-                <Comment
-                  authorName={singlecomment?.author_details?.name}
-                  content={singlecomment?.content}
-                  commentId={singlecomment?._id}
-                  handleGetComments={handleGetComments}
-                  postId={postId}
-                />
-              );
-            })}
+            commentData.map((singlecomment) => (
+              <Comment
+                authorName={singlecomment?.author_details?.name}
+                content={singlecomment?.content}
+                commentId={singlecomment?._id}
+                handleGetComments={handleGetComments}
+                postId={postId}
+                setToggle={setToggle}
+              />
+            ))}
         </div>
       )}
     </div>

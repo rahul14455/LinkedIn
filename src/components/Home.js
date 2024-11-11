@@ -11,6 +11,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [searchUserData, setSearchData] = useState([]);
   console.log({ search });
+
   return (
     <div className="app_wrapper">
       <Header setSearch={setSearch} setSearchData={setSearchData} />
@@ -20,17 +21,21 @@ const Home = () => {
         {!search ? (
           <Feed />
         ) : (
-          searchUserData?.length && (
-            <div className="search-results">
-              {searchUserData.map((result) => {
-                return (
-                  <div className="searchresults">
+          <>
+            {searchUserData?.length > 0 ? (
+              <div className="search-results">
+                {searchUserData.map((result) => (
+                  <div key={result.id} className="searchresults">
                     <SearchUser userData={result} />
                   </div>
-                );
-              })}
-            </div>
-          )
+                ))}
+              </div>
+            ) : (
+              <div className="no-results">
+                <p>No search results found</p>
+              </div>
+            )}
+          </>
         )}
 
         <Widget />

@@ -1,6 +1,25 @@
+/* Styling for search results container */
 .search-results {
   display: flex;
   flex: 0.6;
   flex-direction: column;
   margin: 0px 30px;
+  overflow-y: auto; /* Adds scrollability if the list overflows */
+}
+
+/* Styling for no results message */
+.no-results {
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+  padding: 20px;
+  margin-top: 20px;
+  flex: 0.6;
+  flex-direction: column;
+  margin: 0px 30px;
+}
+
+/* Optional: Add spacing between search result items */
+.searchresults {
+  margin-bottom: 15px;
 }

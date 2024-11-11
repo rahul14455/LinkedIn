@@ -9,6 +9,8 @@
   margin-bottom: 20px;
   z-index: 99;
 }
+
+/* Header Left */
 .header_left {
   display: flex;
 }
@@ -38,6 +40,12 @@
   color: #333;
 }
 
+/* Header Right */
+.header_right {
+  display: flex;
+  align-items: center;
+}
+
 .header_options {
   display: flex;
   flex-direction: column;
@@ -49,11 +57,7 @@
   position: relative;
 }
 
-.header_right {
-  display: flex;
-  align-items: center;
-}
-
+/* First Option Line */
 .header_options:first-child::before {
   content: "";
   position: absolute;
@@ -67,22 +71,23 @@
 .header_options:first-child {
   color: #000;
 }
+
 .MuiAvatar-root {
   width: 30px !important;
   height: 30px !important;
   object-fit: contain;
 }
+
 .header_options:last-child {
   max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* margin: 0 auto; */
   color: #915907 !important;
   font-weight: 400;
   margin: 0px 15px;
   font-size: 14px;
-  /* text-decoration: underline; */
 }
+
 .drop-down {
   position: absolute;
   top: 4.5rem;
@@ -105,4 +110,84 @@
   transform: rotate(45deg);
   border-left: 1px solid gray;
   border-top: 1px solid gray;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .header {
+    padding: 10px 5%;
+  }
+
+  .header_left img {
+    height: 25px;
+  }
+
+  .header_search input {
+    min-width: 150px;
+  }
+
+  .header_right {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .header_options {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    padding: 10px 2%;
+  }
+
+  .header_left img {
+    height: 20px;
+  }
+
+  .header_search input {
+    min-width: 120px;
+  }
+
+  .header_right {
+    display: none; /* Hide options on smaller screens */
+  }
+
+  .header_search {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    padding: 10px 2%;
+  }
+
+  .header_left {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .header_right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header_search input {
+    min-width: 180px;
+  }
+
+  .header_options {
+    font-size: 12px;
+    margin: 5px 10px;
+  }
+
+  .drop-down {
+    top: 3.5rem;
+    right: 0.5rem;
+    width: 100px;
+  }
 }

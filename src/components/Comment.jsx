@@ -11,6 +11,7 @@ const Comment = ({
   commentId,
   postId,
   handleGetComments,
+  setToggle,
 }) => {
   // Initials for Avatar
   const avatar = authorName.charAt(0);
@@ -20,6 +21,7 @@ const Comment = ({
     try {
       await deleteCommentAPI(commentId);
       handleGetComments(postId); // Refresh comments after deletion
+      setToggle((prev) => !prev);
     } catch (e) {
       console.error("Error deleting comment:", e);
     }

@@ -14,9 +14,10 @@ import Post from "./components/Post";
 import SearchUser from "./components/SearchUser";
 import Dropdown from "./components/Dropdown";
 import Home from "./components/Home";
+import { Tooltip } from "@mui/material";
 function Header(props) {
   const navigate = useNavigate();
-  const { setSearchData, setSearch } = props;
+  const { setSearchData, setSearch, hideSearch } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -62,16 +63,17 @@ function Header(props) {
             src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"
           />
         </div>
-        <div className="header_search">
-          <SearchIcon />
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-          {loading && <p>Loading...</p>}
-          {/* {input && searchResults?.length && (
+        {!hideSearch && (
+          <div className="header_search">
+            <SearchIcon />
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+            {loading && <p>Loading...</p>}
+            {/* {input && searchResults?.length && (
             <ul>
               {searchResults.map((result) => {
                 console.log(result);
@@ -88,7 +90,8 @@ function Header(props) {
               })}
             </ul>
           )} */}
-        </div>
+          </div>
+        )}
       </div>
 
       <div className="header_right">
@@ -97,18 +100,8 @@ function Header(props) {
         <HeaderOptions Icon={BusinessCenterIcon} title="Jobs" />
         <HeaderOptions Icon={MessageIcon} title="Messaging" />
         <HeaderOptions Icon={NotificationsIcon} title="Notification" />
-        {/* <HeaderOptions
-          Icon={Avatar}
-          // title={JSON.parse(localStorage.getItem("userDetails")).name}
-         
-        /> */}
+
         <Dropdown title="Me" />
-        {/* <div className="drop-down">
-          <ul className="menu-list">
-            <li>Profile</li>
-            <li>Logout</li>
-          </ul>
-        </div> */}
 
         <Link to="/premium">
           <HeaderOptions title="Try Premium for ₹0" />

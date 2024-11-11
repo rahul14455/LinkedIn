@@ -34,11 +34,17 @@ export default function MenuIntroduction() {
         <HeaderOptions Icon={Avatar} title="Me" />
       </MenuButton>
       <Menu slots={{ listbox: AnimatedListbox }}>
-        <MenuItem onClick={createHandleMenuClick("Profile")}>Profile</MenuItem>
+        <MenuItem
+          onClick={createHandleMenuClick("Profile")}
+          style={{ cursor: "pointer" }}
+        >
+          Profile
+        </MenuItem>
         <MenuItem
           onClick={() => {
             handleLogout("Log out");
           }}
+          style={{ cursor: "pointer" }}
         >
           Log out
         </MenuItem>

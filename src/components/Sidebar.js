@@ -3,6 +3,7 @@ import "../CSS/sidebar.css";
 import Avatar from "@mui/material/Avatar";
 import { Link, json, useParams } from "react-router-dom";
 import getUserDetails from "../utils/userDetails";
+import { Tooltip } from "@mui/material";
 
 function Sidebar() {
   let userDetails = { name: getUserDetails().userName };
@@ -33,8 +34,12 @@ function Sidebar() {
       <div className="sidebar_recent">
         <div>
           <Link to="/groups">Groups</Link> <br />
-          <Link to="#">Events</Link> <br />
-          <Link to="#">Followed Hashtags</Link> <br />
+          <Tooltip title="Under Construction">
+            <Link to="#">Events</Link> <br />
+          </Tooltip>
+          <Tooltip title="Under Construction">
+            <Link to="#">Followed Hashtags</Link> <br />
+          </Tooltip>
         </div>
         <p>Discover more</p>
       </div>

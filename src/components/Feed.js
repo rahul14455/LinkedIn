@@ -9,6 +9,8 @@ import Post from "./Post";
 import { Token } from "@mui/icons-material";
 import ModalComponent from "./ModalComponent";
 import Header from "../Header";
+import { IconButton, Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 function Feed() {
   const [input, SetInput] = useState("");
   const [content, Setcontent] = useState();
@@ -115,13 +117,18 @@ function Feed() {
   const handleOpen = () => {
     setIsOpen(true);
   };
+  const navigate = useNavigate();
+  const handleAvatarClick = (userId) => {
+    navigate(`/Profile/${userId}`);
+  };
 
   return (
     <div className="feed">
       <div className="feed_input">
         <div className="feed_form">
-          {/* <Avatar onClick={() => navigate("/Profile")} /> */}
-          <Avatar />
+          <Avatar onClick={handleAvatarClick} />
+          {/* <Avatar /> */}
+
           <form onSubmit={(e) => e.preventDefault()}>
             <input
               type="text"
@@ -148,23 +155,39 @@ function Feed() {
         </div>
         <div className="feed_options">
           <div className="option">
-            <PhotoIcon style={{ color: "#70b5f9" }} />
-            <span>Photo</span>
+            <Tooltip title="Under Construction">
+              <IconButton>
+                <PhotoIcon style={{ color: "#70b5f9" }} />
+              </IconButton>
+              <span>Photo</span>
+            </Tooltip>
           </div>
 
           <div className="option">
-            <YouTubeIcon style={{ color: "#7fc15e" }} />
-            <span>Video</span>
+            <Tooltip title="Under Construction">
+              <IconButton>
+                <YouTubeIcon style={{ color: "#7fc15e" }} />
+              </IconButton>
+              <span>Video</span>
+            </Tooltip>
           </div>
 
           <div className="option">
-            <TodayIcon style={{ color: "#e7a33e" }} />
-            <span>Event</span>
+            <Tooltip title="Under Construction">
+              <IconButton>
+                <TodayIcon style={{ color: "#e7a33e" }} />
+              </IconButton>
+              <span>Event</span>
+            </Tooltip>
           </div>
 
           <div className="option">
-            <AssignmentIcon style={{ color: "#fc9295" }} />
-            <span>Write Article</span>
+            <Tooltip title="Under Construction">
+              <IconButton>
+                <AssignmentIcon style={{ color: "#fc9295" }} />
+              </IconButton>
+              <span>Write Article</span>
+            </Tooltip>
           </div>
         </div>
       </div>
@@ -186,6 +209,7 @@ function Feed() {
               setToggle={setToggle}
               handleUpdatePost={handleUpdatePost}
               handleOpen={handleOpen}
+              commentCount={post.commentCount}
             />
           );
         })}

@@ -9,6 +9,9 @@ const Profile = () => {
   const param = useParams();
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
+  const [search, setSearch] = useState(""); // State for search term
+  const [searchUserData, setSearchData] = useState([]); // State for search results
+
   // const name = "rahul";
   const id = param.id;
   async function handleConnect() {

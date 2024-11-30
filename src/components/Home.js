@@ -4,17 +4,21 @@ import Header from "../Header";
 import Sidebar from "./Sidebar";
 import Feed from "./Feed";
 import Widget from "./Widget";
-import Profile from "./Profile";
 import SearchUser from "./SearchUser";
 
 const Home = () => {
-  const [search, setSearch] = useState("");
-  const [searchUserData, setSearchData] = useState([]);
-  console.log({ search });
+  const [search, setSearch] = useState(""); // State for search term
+  const [searchUserData, setSearchData] = useState([]); // State for search results
+
+  console.log({ search }); // Debugging the search term
 
   return (
     <div className="app_wrapper">
-      <Header setSearch={setSearch} setSearchData={setSearchData} />
+      <Header
+        setSearch={setSearch}
+        setSearchData={setSearchData}
+        search={search}
+      />
       <div className="app_body">
         <Sidebar />
 

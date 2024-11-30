@@ -7,29 +7,17 @@ import PeopleIcon from "@mui/icons-material/People";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Avatar from "@mui/material/Avatar";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import Post from "./components/Post";
-import SearchUser from "./components/SearchUser";
 import Dropdown from "./components/Dropdown";
-import Home from "./components/Home";
-import { Tooltip } from "@mui/material";
-function Header(props) {
+import { Link, useNavigate } from "react-router-dom";
+
+const Header = ({ setSearch, setSearchData, search }) => {
   const navigate = useNavigate();
-  const { setSearchData, setSearch, hideSearch } = props;
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [openprofile, setOpenProfile] = useState(false);
-  const [input, setInput] = useState("");
+
   const handleSearch = async (e) => {
     const searchQuery = e.target.value;
-    setSearchTerm(searchQuery);
-    setInput(e.target.value);
+    setSearch(searchQuery); // Update parent state
     setLoading(true);
-    console.log(e.target.value);
-    setSearch(e.target.value);
 
     try {
       const response = await fetch(
@@ -41,19 +29,17 @@ function Header(props) {
         }
       );
       const data = await response.json();
-      // console.log(data.data);
-      setSearchResults(data.data);
-      setSearchData(data.data);
-      localStorage.setItem("searchdata", JSON.stringify(data.data));
+      setSearchData(data.data); // Update search results in parent state
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
     setLoading(false);
   };
 
-  function Homeclick() {
+  const Homeclick = () => {
     navigate("/Home");
-  }
+  };
+
   return (
     <div className="header">
       <div className="header_left">
@@ -61,37 +47,21 @@ function Header(props) {
           <img
             onClick={Homeclick}
             src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"
+            alt="logo"
           />
         </div>
-        {!hideSearch && (
-          <div className="header_search">
-            <SearchIcon />
-            <input
-              type="text"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={handleSearch}
-            />
-            {loading && <p>Loading...</p>}
-            {/* {input && searchResults?.length && (
-            <ul>
-              {searchResults.map((result) => {
-                console.log(result);
-                return (
-                  <div className="searchresults">
-                    <li key={result._id}>
-                      <p>Title: {result.title}</p>
-                      <p>Author: {result.author}</p>
-                      <p>Content: {result.content}</p>
-                    </li>
-                    <SearchUser userData={result} />
-                  </div>
-                );
-              })}
-            </ul>
-          )} */}
-          </div>
-        )}
+
+        <div className="header_search">
+          <SearchIcon />
+          <input
+            type="text"
+            placeholder="Search"
+            value={search}
+            onChange={handleSearch}
+            onClick={Homeclick}
+          />
+          {loading && <p>Loading...</p>}
+        </div>
       </div>
 
       <div className="header_right">
@@ -109,6 +79,6 @@ function Header(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

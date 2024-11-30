@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -36,27 +36,64 @@ function Post({
     navigate(`/Profile/${userId}`);
   };
 
-  console.log(commentCount);
+  const userId = JSON.parse(localStorage.getItem("userDetails"))._id;
+  const likedPostsKey = `likedPosts_${userId}`;
+  const likeCountKey = `likeCount_${userId}_${postId}`;
 
-  const [isLiked, setIsLiked] = useState(initialIsLiked);
-  const [likeCount, setLikeCount] = useState(initialLikeCount);
+  // Initialize state with local storage values or initial props
+  const [isLiked, setIsLiked] = useState(() => {
+    const likedPosts = JSON.parse(localStorage.getItem(likedPostsKey) || "[]");
+    return likedPosts.includes(postId);
+  });
+
+  const [likeCount, setLikeCount] = useState(() => {
+    const storedLikeCount = localStorage.getItem(likeCountKey);
+    return storedLikeCount ? parseInt(storedLikeCount) : initialLikeCount;
+  });
+
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [inputData, setInputData] = useState("");
   const [commentData, setCommentData] = useState([]);
+  const [open, setOpen] = useState(null);
+
   const { userName } = userDetails();
   const avatar = userName ? userName.charAt(0) : "R";
 
   const handleLikeAPost = async () => {
     try {
+      // Retrieve current liked posts from local storage
+      const likedPosts = JSON.parse(
+        localStorage.getItem(likedPostsKey) || "[]"
+      );
+
       if (!isLiked) {
+        // Like the post
         await likeAPost(postId);
+
+        // Add post to liked posts in local storage
+        const updatedLikedPosts = [...likedPosts, postId];
+        localStorage.setItem(likedPostsKey, JSON.stringify(updatedLikedPosts));
+
+        // Increment and store like count
+        const newLikeCount = likeCount + 1;
+        setLikeCount(newLikeCount);
+        localStorage.setItem(likeCountKey, newLikeCount.toString());
+
         setIsLiked(true);
-        setLikeCount((prevCount) => prevCount + 1);
       } else {
-        // Assuming `dislikeAPost` API exists for unliking the post
-        await likeAPost(postId); // Use the same function if it toggles
+        // Unlike the post
+        await likeAPost(postId); // Assuming this toggles like/unlike
+
+        // Remove post from liked posts in local storage
+        const updatedLikedPosts = likedPosts.filter((id) => id !== postId);
+        localStorage.setItem(likedPostsKey, JSON.stringify(updatedLikedPosts));
+
+        // Decrement and store like count
+        const newLikeCount = likeCount - 1;
+        setLikeCount(newLikeCount);
+        localStorage.setItem(likeCountKey, newLikeCount.toString());
+
         setIsLiked(false);
-        setLikeCount((prevCount) => prevCount - 1);
       }
     } catch (error) {
       console.error("Error updating like status:", error);
@@ -87,8 +124,6 @@ function Post({
       console.error("Error fetching data:", error);
     }
   };
-
-  const [open, setOpen] = useState(null);
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -257,6 +292,7 @@ function Post({
           {commentData.length > 0 &&
             commentData.map((singlecomment) => (
               <Comment
+                key={singlecomment?._id}
                 authorName={singlecomment?.author_details?.name}
                 content={singlecomment?.content}
                 commentId={singlecomment?._id}

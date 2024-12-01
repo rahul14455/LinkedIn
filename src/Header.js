@@ -9,6 +9,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Dropdown from "./components/Dropdown";
 import { Link, useNavigate } from "react-router-dom";
+import { IconButton, Tooltip } from "@mui/material";
 
 const Header = ({ setSearch, setSearchData, search }) => {
   const navigate = useNavigate();
@@ -66,10 +67,30 @@ const Header = ({ setSearch, setSearchData, search }) => {
 
       <div className="header_right">
         <HeaderOptions Icon={HomeIcon} title="Home" />
-        <HeaderOptions Icon={PeopleIcon} title="My Network" />
-        <HeaderOptions Icon={BusinessCenterIcon} title="Jobs" />
-        <HeaderOptions Icon={MessageIcon} title="Messaging" />
-        <HeaderOptions Icon={NotificationsIcon} title="Notification" />
+
+        <Tooltip title="Under Construction">
+          <IconButton>
+            <HeaderOptions Icon={PeopleIcon} title="My Network" />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Under Construction">
+          <IconButton>
+            <HeaderOptions Icon={BusinessCenterIcon} title="Jobs" />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Under Construction">
+          <IconButton>
+            <HeaderOptions Icon={MessageIcon} title="Messaging" />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Under Construction">
+          <IconButton>
+            <HeaderOptions Icon={NotificationsIcon} title="Notification" />
+          </IconButton>
+        </Tooltip>
 
         <Dropdown title="Me" />
 
